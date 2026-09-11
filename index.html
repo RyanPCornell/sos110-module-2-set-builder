@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 2 SET Builder &mdash; ecosystem services of Grand Canyon National Park</title>
+<meta name="description" content="Build the Module 2 Review mind map: list the park's native plants and animals from official sources, map all four categories of ecosystem service, link each one to a sustainability outcome, trace how a human pressure harms them, and save the whole thing as a PDF.">
+<meta property="og:title" content="Module 2 SET Builder">
+<meta property="og:description" content="Map the ecosystem services of Grand Canyon National Park, link each to a sustainability outcome, and save the assignment as a PDF. A teaching tool from SOS 110.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#15201b; --forest:#1A3C34; --forest-mid:#2D6A4F; --green:#40916C;
+  --green-light:#74C69D; --pale:#F0F7F4; --line:#dde7e2; --muted:#5b6b63;
+  --gold:#B8860B; --amber:#C9722B; --paper:#ffffff;
+  --shadow:0 10px 30px rgba(20,40,30,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+/* Master type scale. Everything in this stylesheet is sized in rem, so this one
+   number makes the whole deck bigger or smaller together. It is set above 100%
+   so the text carries to the back of a lecture hall; a deck that runs out of
+   room on a dense slide can dial it back with `html{font-size:…}` in its own
+   EXTRA_CSS. */
+html{font-size:112%;}
+body{
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  color:var(--ink); background:#0c1411; overflow:hidden;
+}
+.deck{position:fixed; inset:0;}
+.slide{
+  position:absolute; inset:0; opacity:0; visibility:hidden;
+  display:flex; flex-direction:column; justify-content:center;
+  background:var(--paper); transition:opacity .35s ease;
+}
+.slide.active{opacity:1; visibility:visible; z-index:2;}
+.slide-inner{
+  width:100%; max-width:1440px; margin:0 auto;
+  padding:clamp(1.1rem,2.8vh,2.2rem) clamp(1.4rem,3vw,2.6rem);
+}
+.slide-inner.two-col{display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(1.5rem,3.5vw,3.5rem); align-items:center;}
+.slide-inner.one-col,.slide-inner.col{display:flex; flex-direction:column; justify-content:center;}
+
+/* typography */
+h1,h2,h3,.heading{font-family:'Merriweather',Georgia,serif;}
+.eyebrow{font-size:clamp(.72rem,1.35vw,.92rem); font-weight:700; letter-spacing:.04em;
+  text-transform:uppercase; color:var(--accent,var(--green)); margin-bottom:.7rem;}
+.eyebrow::before{content:""; display:inline-block; width:.6em; height:.6em; border-radius:2px;
+  background:var(--accent,var(--green)); margin-right:.5em; transform:translateY(.02em);}
+.eyebrow.light{color:var(--green-light);}
+.eyebrow.light::before{display:none;}
+.heading{font-size:clamp(1.5rem,3.4vw,2.5rem); line-height:1.12; color:var(--forest); font-weight:800; margin-bottom:1rem;}
+.lead{font-size:clamp(.95rem,1.55vw,1.12rem); line-height:1.5; color:#33453d; margin-bottom:1.1rem; max-width:60ch;}
+.lead.center{text-align:center; margin:0 auto 1.6rem;}
+.bullets{list-style:none; display:flex; flex-direction:column; gap:.7rem;}
+.bullets li{position:relative; padding-left:1.5rem; font-size:clamp(.9rem,1.5vw,1.06rem); line-height:1.45; color:#2c3a34;}
+.bullets li::before{content:""; position:absolute; left:0; top:.5em; width:.5rem; height:.5rem;
+  border-radius:50%; background:var(--accent,var(--green-light));}
+.bullets li strong{color:var(--forest);}
+/* works-cited small print (content_slide refs=): sits under the content, set
+   small and muted with a hairline rule and a hanging indent, so a real citation
+   can appear on the slide without competing with the teaching text */
+.refs{margin-top:.9rem; padding-top:.5rem; border-top:1px solid var(--line);}
+/* a cited slide carries an extra block, so tighten its rhythm to keep the
+   citation above the fold on a 16:9 projector */
+.slide.has-refs .bullets{gap:.5rem;}
+.slide.has-refs .lead{margin-bottom:.8rem;}
+.slide.has-refs .heading{margin-bottom:.75rem;}
+.refs p{font-size:clamp(.6rem,.92vw,.72rem); line-height:1.4; color:var(--muted);
+  padding-left:1.15em; text-indent:-1.15em; margin-top:.3rem;}
+.refs p:first-child{margin-top:0;}
+.refs em{font-style:italic;}
+/* sub-bullet (authored as "- text"): indented under its parent, a shade smaller,
+   hollow marker so the hierarchy reads at projector distance */
+.bullets li.sub{padding-left:3rem; font-size:clamp(.82rem,1.32vw,.95rem); color:#48594f;
+  margin-top:-.25rem;}
+.bullets li.sub::before{left:1.55rem; top:.55em; width:.42rem; height:.42rem;
+  background:transparent; border:2px solid var(--accent,var(--green-light));}
+/* staged reveal (content_slide staged=True): fade each item in on a clicker
+   press. Opacity, not display, so the space is reserved up front and nothing
+   reflows as items appear. */
+.stage-item{opacity:0; transition:opacity .3s ease;}
+.stage-item.shown{opacity:1;}
+@media (prefers-reduced-motion:reduce){ .stage-item{transition:none;} }
+.note{margin-top:.85rem; padding:.62rem .95rem; background:var(--pale); border-left:3px solid var(--green);
+  border-radius:0 8px 8px 0; font-size:clamp(.8rem,1.25vw,.92rem); color:#3a4a43; font-style:italic;}
+.col-media{height:100%; display:flex; align-items:center;}
+.col-media img{width:100%; height:auto; max-height:74vh; object-fit:cover; border-radius:16px; box-shadow:var(--shadow);}
+
+/* pairs */
+.pairs{display:flex; flex-direction:column; gap:.5rem;}
+.pair{background:var(--pale); border:1px solid var(--line); border-radius:12px; padding:.62rem .95rem;}
+.pair-head{font-weight:700; color:var(--forest); font-size:clamp(.86rem,1.4vw,1rem);}
+.pair-desc{font-size:clamp(.8rem,1.3vw,.95rem); color:#3a4a43; line-height:1.4; margin-top:.15rem;}
+
+/* grids */
+.grid{display:grid; gap:clamp(.8rem,1.6vw,1.3rem); width:100%;}
+.grid.cols-2{grid-template-columns:repeat(2,1fr);}
+.grid.cols-3{grid-template-columns:repeat(3,1fr);}
+.grid.cols-4{grid-template-columns:repeat(4,1fr);}
+.gcard{background:var(--paper); border:1px solid var(--line); border-top:4px solid var(--accent,var(--green));
+  border-radius:14px; padding:clamp(.9rem,1.8vw,1.4rem); box-shadow:0 4px 14px rgba(20,40,30,.06);}
+.gcard-head{font-family:'Merriweather',serif; font-weight:700; color:var(--forest);
+  font-size:clamp(.95rem,1.5vw,1.12rem); margin-bottom:.45rem;}
+.gcard-desc{font-size:clamp(.82rem,1.3vw,.96rem); line-height:1.45; color:#3a4a43;}
+.gcard.img img{width:100%; height:clamp(110px,16vh,170px); object-fit:cover; border-radius:10px; margin-bottom:.7rem;}
+
+/* outline & objectives */
+.outline-grid{display:grid; grid-template-columns:1fr 1fr; gap:.7rem 2.2rem; margin-top:1rem;}
+.ol-item{display:flex; align-items:center; gap:1rem; padding:.7rem .4rem; border-bottom:1px solid var(--line);}
+.ol-num{font-family:'Merriweather',serif; font-weight:800; color:var(--accent,var(--green)); font-size:clamp(1.1rem,2vw,1.5rem); min-width:2.4rem;}
+.ol-text{font-size:clamp(.92rem,1.5vw,1.1rem); color:var(--forest); font-weight:600;}
+.obj-grid{display:grid; grid-template-columns:1fr 1fr; gap:1rem 2rem; margin-top:1.2rem;}
+.obj-item{display:flex; gap:1rem; align-items:flex-start;}
+.obj-num{flex:none; width:2.4rem; height:2.4rem; border-radius:50%; background:var(--forest-mid); color:#fff;
+  font-family:'Merriweather',serif; font-weight:700; display:flex; align-items:center; justify-content:center; font-size:1.1rem;}
+.obj-text{font-size:clamp(.9rem,1.45vw,1.05rem); line-height:1.4; color:#2c3a34; padding-top:.35rem;}
+
+/* quote */
+.bigquote{font-family:'Merriweather',serif; font-size:clamp(1.4rem,3vw,2.2rem); line-height:1.25;
+  color:var(--forest); font-style:italic; margin-bottom:1.2rem;}
+.bigquote cite{display:block; font-size:clamp(.9rem,1.4vw,1.05rem); font-style:normal; color:var(--green);
+  font-family:'Inter',sans-serif; font-weight:600; margin-top:.6rem;}
+
+/* footer */
+.footer{position:absolute; bottom:1rem; right:1.6rem; font-size:.72rem; color:#9bb0a6;}
+.footer.light{color:rgba(255,255,255,.7);}
+
+/* title slides */
+.title-slide{justify-content:flex-end;}
+img.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+.title-slide img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+.title-scrim{position:absolute; inset:0;
+  background:linear-gradient(90deg, rgba(10,25,18,.86) 0%, rgba(10,25,18,.55) 50%, rgba(10,25,18,.2) 100%);}
+.title-content{position:relative; z-index:2; padding:0 clamp(2.5rem,7vw,6rem) clamp(3rem,9vh,6rem); color:#fff; max-width:60rem;}
+.chapter-kicker{font-size:clamp(.9rem,1.6vw,1.1rem); font-weight:700; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--green-light); margin-bottom:.6rem;}
+.mega{font-size:clamp(4rem,13vw,9rem); line-height:.95; font-weight:900; letter-spacing:-.01em;}
+.title-sub{font-family:'Merriweather',serif; font-size:clamp(1.3rem,3.2vw,2.4rem); font-weight:400; margin-top:.4rem; color:#eaf5ef;}
+.title-tag{margin-top:1.6rem; font-style:italic; font-size:clamp(1rem,1.9vw,1.4rem); color:var(--green-light);
+  border-left:3px solid var(--green-light); padding-left:1rem;}
+
+/* sim slides */
+.slide.sim{background:#0e1a15; padding:0;}
+.sim-bar{display:flex; align-items:center; justify-content:space-between; gap:1.5rem;
+  padding:.9rem clamp(1.2rem,3vw,2.2rem); background:linear-gradient(120deg,#143027,#1d4438); color:#fff;}
+.sim-bar-text .eyebrow{margin-bottom:.2rem;}
+.sim-title{font-size:clamp(1.15rem,2.4vw,1.8rem); color:#fff; font-weight:800; line-height:1;}
+.sim-q{font-size:clamp(.78rem,1.3vw,.95rem); color:#bfe3d3; margin-top:.35rem;}
+.sim-open{flex:none; background:var(--green-light); color:#0e1a15; font-weight:700; text-decoration:none;
+  padding:.6rem 1.1rem; border-radius:10px; font-size:.85rem; white-space:nowrap; transition:background .15s;}
+.sim-open:hover{background:#9fe0c0;}
+.sim-note{background:#3a2c12; color:#ffe6b8; font-size:.82rem; padding:.5rem clamp(1.2rem,3vw,2.2rem); line-height:1.4;}
+.sim-frame-wrap{flex:1; min-height:0; background:#fff;}
+.sim-frame{width:100%; height:100%; border:0; display:block; background:#fff;}
+
+/* embed slides (interactive chart / app under a slim light header) */
+.slide.embed{background:#fff; padding:0;}
+.embed-head{display:flex; align-items:flex-end; justify-content:space-between; gap:1.5rem;
+  padding:.85rem clamp(1.3rem,3vw,2.4rem) .8rem; border-bottom:1px solid var(--line); background:#fff;}
+.embed-head .eyebrow{margin-bottom:.25rem;}
+.embed-title{font-size:clamp(1.1rem,2.4vw,1.7rem); color:var(--forest); font-weight:800; line-height:1.05;}
+.embed-sub{font-size:clamp(.72rem,1.2vw,.86rem); color:var(--muted); margin-top:.3rem; max-width:80ch;}
+.embed-open{flex:none; align-self:center; background:var(--accent,var(--green)); color:#fff; font-weight:700;
+  text-decoration:none; padding:.5rem 1rem; border-radius:9px; font-size:.82rem; white-space:nowrap;
+  transition:filter .15s;}
+.embed-open:hover{filter:brightness(1.08);}
+.embed-wrap{flex:1; min-height:0; background:#fff;}
+.embed-frame{width:100%; height:100%; border:0; display:block; background:#fff;}
+
+/* nav chrome */
+.nav-btn{position:fixed; top:50%; transform:translateY(-50%); z-index:30;
+  width:clamp(40px,5vw,56px); height:clamp(40px,5vw,56px); border-radius:50%;
+  border:none; background:rgba(20,40,30,.32); color:#fff; font-size:1.4rem; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; transition:background .15s; backdrop-filter:blur(4px);}
+.nav-btn:hover{background:rgba(20,40,30,.6);}
+.nav-btn.prev{left:14px;} .nav-btn.next{right:14px;}
+.topbar{position:fixed; top:0; left:0; right:0; height:4px; background:rgba(255,255,255,.12); z-index:40;}
+.progress{height:100%; background:var(--green-light); width:0; transition:width .3s;}
+.hud{position:fixed; bottom:14px; left:50%; transform:translateX(-50%); z-index:40;
+  display:flex; align-items:center; gap:.5rem; background:rgba(14,26,21,.72); backdrop-filter:blur(6px);
+  padding:.4rem .55rem; border-radius:999px; box-shadow:0 6px 20px rgba(0,0,0,.25);}
+.hud button{background:none; border:none; color:#dbeee5; cursor:pointer; font-size:.95rem; padding:.3rem .55rem; border-radius:8px; line-height:1;}
+.hud button:hover{background:rgba(255,255,255,.12);}
+.hud .counter{color:#fff; font-size:.82rem; font-weight:600; min-width:3.2rem; text-align:center; font-variant-numeric:tabular-nums;}
+
+/* menu overlay */
+.menu{position:fixed; inset:0; z-index:60; background:rgba(8,16,12,.92); backdrop-filter:blur(8px);
+  display:none; padding:clamp(1.5rem,4vh,3rem); overflow:auto;}
+.menu.open{display:block;}
+.menu h3{color:#fff; font-family:'Merriweather',serif; margin-bottom:1.2rem; font-size:1.3rem;}
+.menu-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:.5rem; max-width:1100px; margin:0 auto;}
+.menu-item{display:flex; align-items:center; gap:.7rem; text-align:left; background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1); color:#e6f3ec; padding:.6rem .8rem; border-radius:10px; cursor:pointer;
+  font-size:.86rem; transition:background .15s;}
+.menu-item:hover{background:rgba(116,198,157,.22);}
+.menu-num{flex:none; width:1.7rem; height:1.7rem; border-radius:6px; background:var(--forest-mid); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-size:.78rem; font-weight:700;}
+.menu-close{position:fixed; top:18px; right:22px; background:none; border:none; color:#fff; font-size:1.6rem; cursor:pointer; z-index:61;}
+
+/* half-bleed content layout (text left, edge-to-edge image right) */
+.bleed-grid{position:absolute; inset:0; display:grid; grid-template-columns:1.04fr .96fr;}
+.bleed-text{padding:clamp(1.4rem,4vh,2.8rem) clamp(1.5rem,3.4vw,3.2rem);
+  display:flex; flex-direction:column; justify-content:center; min-width:0; overflow:auto;}
+.bleed-media{position:relative; overflow:hidden; background:var(--pale);}
+.bleed-media::before{content:""; position:absolute; left:0; top:0; bottom:0; width:34px; z-index:3;
+  background:linear-gradient(90deg, rgba(20,40,30,.13), transparent); pointer-events:none;}
+.bleed-media.cover img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+.bleed-media.contain{display:flex; align-items:center; justify-content:center;
+  padding:clamp(1.4rem,3.2vw,3rem); background:linear-gradient(155deg,#eef6f1,#dfeee6);}
+.bleed-media.contain img{max-width:100%; max-height:100%; object-fit:contain; background:#fff;
+  border-radius:12px; box-shadow:0 10px 30px rgba(20,40,30,.18); padding:6px;}
+
+/* stacked layout (text on top, wide image full-width below) */
+.stack-grid{position:absolute; inset:0; display:flex; flex-direction:column;}
+.stack-top{display:grid; grid-template-columns:minmax(240px,34%) 1fr;
+  gap:clamp(1.2rem,3vw,2.8rem); align-items:start;
+  padding:clamp(1.1rem,2.8vh,2rem) clamp(1.6rem,3.4vw,3.4rem) clamp(.7rem,1.6vh,1.1rem);}
+.stack-head .heading{margin-bottom:0;}
+.stack-body{min-width:0;}
+.stack-body .lead{margin-bottom:.7rem;}
+.stack-body .bullets{display:block; columns:2; column-gap:1.9rem;}
+.stack-body .bullets li{break-inside:avoid; margin-bottom:.5rem;}
+.stack-body .pairs{display:block; columns:2; column-gap:1.2rem;}
+.stack-body .pairs .pair{break-inside:avoid; margin-bottom:.55rem;}
+.stack-body .note{margin-top:.7rem;}
+.stack-media{flex:1; min-height:0; position:relative; display:flex; align-items:center; justify-content:center;
+  padding:clamp(.7rem,1.8vh,1.2rem) clamp(1.6rem,3.4vw,3.4rem) clamp(2.2rem,4.5vh,3rem);
+  background:linear-gradient(180deg,#eef6f1,#dfeee6);}
+.stack-media::before{content:""; position:absolute; left:0; right:0; top:0; height:24px; z-index:2;
+  background:linear-gradient(180deg,rgba(20,40,30,.11),transparent); pointer-events:none;}
+.stack-media.contain img,.stack-media img{max-width:100%; max-height:100%; object-fit:contain;
+  background:#fff; border-radius:12px; box-shadow:0 10px 30px rgba(20,40,30,.18); padding:6px;}
+
+/* stat callouts */
+.stat-row{display:flex; flex-wrap:wrap; gap:.7rem; margin:.2rem 0 1.1rem;}
+.stat-box{flex:1 1 0; min-width:92px; background:#fff; border:1px solid var(--line);
+  border-top:3px solid var(--accent,var(--green)); border-radius:12px;
+  padding:.6rem .7rem .65rem; box-shadow:0 4px 14px rgba(20,40,30,.06);}
+.stat-num{font-family:'Merriweather',serif; font-weight:800; color:var(--accent,var(--forest));
+  font-size:clamp(1.35rem,2.9vw,2.1rem); line-height:1;}
+.stat-lbl{font-size:clamp(.66rem,1.05vw,.8rem); color:var(--muted); line-height:1.25; margin-top:.3rem;}
+
+@media (max-width:820px){
+  .slide-inner.two-col{grid-template-columns:1fr; gap:1.2rem;}
+  .col-media{order:-1;} .col-media img{max-height:34vh;}
+  .bleed-grid{position:static; display:flex; flex-direction:column; height:100%;}
+  .bleed-media{min-height:34vh;} .bleed-media.contain{min-height:30vh;}
+  .bleed-media::before{display:none;}
+  .stack-grid{position:static;}
+  .stack-top{grid-template-columns:1fr; gap:.4rem;}
+  .stack-body .bullets,.stack-body .pairs{grid-template-columns:1fr;}
+  .stack-media{min-height:34vh;}
+  .grid.cols-2{grid-template-columns:1fr;}
+  .grid.cols-3,.grid.cols-4{grid-template-columns:1fr 1fr;}
+  .outline-grid,.obj-grid{grid-template-columns:1fr;}
+  .slide{justify-content:flex-start; overflow-y:auto;}
+}
+
+
+/* ═══ shared interactive-slide framework (ix-*) ═══ */
+.ix-inner{max-width:80rem; margin:0 auto; width:100%; padding-inline:clamp(3.4rem,6vw,5rem);}
+[hidden]{display:none !important;}
+.ix-head{font-size:clamp(1.15rem,2.4vw,1.85rem); margin-bottom:.35rem;}
+.ix-svg{width:100%; height:auto; display:block;}
+.ix-src{font-size:.72rem; color:#6b7d75; margin-top:.55rem; line-height:1.45;}
+@keyframes ix-dash{to{stroke-dashoffset:-48;}}
+@keyframes ix-pop{0%{transform:scale(.94);opacity:.3}100%{transform:scale(1);opacity:1}}
+@media(prefers-reduced-motion:reduce){.ix-svg *{animation:none!important;}}
+
+/* ══════════ MODULE 1 SET BUILDER ══════════ */
+.bd-slide{background:linear-gradient(160deg,#f8faf8,#eef3ef); padding:0;}
+.bd-root{position:absolute; inset:0; display:flex; flex-direction:column;
+  padding:clamp(.6rem,1.8vh,1.1rem) clamp(4.6rem,5.8vw,5.6rem) clamp(.5rem,1.4vh,.9rem);}
+.bd-top{display:flex; align-items:flex-end; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:.5rem;}
+.bd-h{font-size:clamp(1.05rem,2.1vw,1.6rem); margin-bottom:0;}
+.bd-toolbar{display:flex; align-items:center; gap:.4rem; flex-wrap:wrap;}
+.bd-name{font:inherit; font-weight:700; font-size:.8rem; color:var(--forest); background:#fff;
+  border:1.5px solid var(--line); border-radius:9px; padding:.35rem .6rem; width:9.4rem;}
+.bd-who{width:7.4rem; font-weight:600;}
+.bd-btn.pdf{background:var(--forest-mid); border-color:var(--forest-mid); color:#fff;}
+.bd-btn.pdf:hover{filter:brightness(1.12); border-color:var(--forest-mid);}
+.bd-btn.expl{border-color:var(--forest-mid); color:var(--forest-mid);}
+.bd-btn.expl:hover{background:#eef4f0;}
+/* explanation modal */
+.bd-modal{position:absolute; inset:0; z-index:40; display:flex; align-items:center; justify-content:center;
+  background:rgba(12,26,20,.5); backdrop-filter:blur(2px); padding:clamp(1rem,4vh,3rem) 1rem;}
+.bd-modal-card{background:#fff; border-radius:16px; box-shadow:0 24px 60px rgba(12,26,20,.35);
+  width:min(58rem,100%); max-height:100%; display:flex; flex-direction:column;
+  padding:clamp(.9rem,2.4vh,1.5rem) clamp(1rem,2.4vw,1.7rem) clamp(.8rem,2vh,1.2rem);}
+.bd-modal-head{display:flex; align-items:center; justify-content:space-between; gap:1rem;}
+.bd-modal-head h3{font-family:'Merriweather',serif; font-size:clamp(1.05rem,2vw,1.4rem); color:var(--forest);}
+.bd-modal-x{font:inherit; font-size:1.5rem; line-height:1; color:#8c9a93; background:none; border:none;
+  cursor:pointer; padding:0 .2rem;}
+.bd-modal-x:hover{color:var(--forest);}
+.bd-modal-hint{font-size:clamp(.76rem,1.2vw,.9rem); color:#5b6b63; margin:.25rem 0 .5rem; line-height:1.4;}
+.bd-modal-hint b{color:var(--forest);}
+.bd-modal-ta{flex:1; min-height:min(46vh,22rem); width:100%; resize:vertical; font:inherit;
+  font-size:clamp(.82rem,1.25vw,.95rem); line-height:1.6; color:#22302b; background:#fbfcfb;
+  border:1.5px solid var(--line); border-radius:11px; padding:.7rem .85rem;}
+.bd-modal-ta:focus{outline:none; border-color:var(--forest-mid); background:#fff;}
+.bd-modal-foot{display:flex; align-items:center; gap:.5rem; margin-top:.6rem;}
+.bd-modal-note{flex:1; font-size:.74rem; color:#8c9a93; font-style:italic;}
+/* shock result card */
+.bd-shock-card{background:#fff; border-radius:16px; box-shadow:0 24px 60px rgba(12,26,20,.35);
+  width:min(33rem,100%); border-top:6px solid var(--sc,#40916C);
+  padding:clamp(1.1rem,3vh,1.7rem) clamp(1.1rem,2.6vw,1.7rem);
+  display:flex; flex-direction:column; gap:.5rem; animation:bd-pop .28s cubic-bezier(.2,1.1,.4,1);}
+@keyframes bd-pop{from{transform:scale(.94) translateY(6px); opacity:0;} to{transform:none; opacity:1;}}
+.bd-shock-status{display:flex; align-items:center; gap:.55rem;}
+.bd-shock-dot{width:.72rem; height:.72rem; border-radius:50%; background:var(--sc,#40916C); flex:none;}
+.bd-shock-word{font-family:'Merriweather',serif; font-weight:900; color:var(--sc,#40916C);
+  font-size:clamp(1.25rem,2.8vw,1.7rem); line-height:1;}
+.bd-shock-lead{font-size:clamp(.86rem,1.35vw,1rem); line-height:1.5; color:#22302b;}
+.bd-shock-lead b{color:var(--forest);}
+.bd-shock-body{font-size:clamp(.8rem,1.25vw,.94rem); line-height:1.55; color:#3a4a43;}
+.bd-shock-body b{color:var(--forest);} .bd-shock-body em{font-style:italic; color:var(--forest);}
+.bd-shock-sparkwrap{margin-top:.15rem;}
+.bd-shock-spark{width:100%; height:auto; display:block; background:#fbfcfb;
+  border:1px solid var(--line); border-radius:10px;}
+.bd-shock-cap{font-size:.72rem; color:#8c9a93; line-height:1.4; margin-top:.3rem;}
+.bd-shock-foot{display:flex; justify-content:flex-end; gap:.5rem; margin-top:.45rem;}
+.bd-name:focus{outline:none; border-color:var(--accent);}
+.bd-modes{display:flex; gap:.15rem; background:#e9efeb; border-radius:10px; padding:.15rem;}
+.bd-mode{font:inherit; font-weight:700; font-size:.76rem; cursor:pointer; color:#5b6b63;
+  background:transparent; border:none; border-radius:8px; padding:.35rem .65rem;}
+.bd-mode.active{background:#fff; color:var(--forest); box-shadow:0 1px 4px rgba(20,40,30,.14);}
+.bd-pol{display:flex; gap:.15rem; background:#e9efeb; border-radius:10px; padding:.15rem;}
+.bd-polbtn{font:inherit; font-weight:700; font-size:.74rem; cursor:pointer; color:#5b6b63;
+  background:transparent; border:none; border-radius:8px; padding:.35rem .6rem;}
+.bd-polbtn.active[data-pol="1"]{background:#2f7d4f; color:#fff;}
+.bd-polbtn.active[data-pol="-1"]{background:#A4373A; color:#fff;}
+.bd-preset,.bd-btn{font:inherit; font-weight:700; font-size:.76rem; cursor:pointer; color:var(--forest);
+  background:#fff; border:1.5px solid var(--line); border-radius:9px; padding:.35rem .6rem;}
+.bd-btn:hover,.bd-preset:hover{border-color:var(--accent);}
+.bd-body{flex:1; min-height:0; display:grid; grid-template-columns:172px 1fr 268px; gap:.6rem;}
+.bd-palette{overflow-y:auto; display:flex; flex-direction:column; gap:.45rem; padding-right:.15rem;}
+.bd-phint{font-size:.68rem; color:#6b7d75; line-height:1.35; font-style:italic;}
+.bd-pgroup{display:flex; flex-direction:column; gap:.18rem;}
+.bd-ptitle{font-size:.64rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--dc);
+  border-bottom:2px solid var(--dc); padding-bottom:.1rem; margin-bottom:.12rem;}
+.bd-pitem{display:flex; align-items:center; gap:.35rem; font:inherit; font-size:.7rem; font-weight:600;
+  color:#33453d; background:#fff; border:1.5px solid var(--line); border-radius:9px; padding:.14rem .3rem;
+  cursor:grab; text-align:left; touch-action:none; transition:all .12s;}
+.bd-pitem:hover{border-color:var(--dc); transform:translateX(2px);}
+.bd-pitem:active{cursor:grabbing;}
+.bd-picon{width:21px; height:21px; flex:none;}
+.bd-canvaswrap{min-width:0; min-height:0; display:flex; position:relative;}
+.bd-svg{width:100%; height:100%; background:#fff; border:1px solid var(--line); border-radius:14px;
+  box-shadow:var(--shadow); touch-action:none;}
+.bd-svg[data-mode="link"]{cursor:crosshair;}
+.bd-svg[data-mode="del"]{cursor:not-allowed;}
+.bd-empty{font:700 17px 'Inter',sans-serif; fill:#c2cec8;}
+.bd-node{cursor:pointer;}
+.bd-node .bd-blob{transition:fill .3s;}
+.bd-node.sel .bd-blob{stroke-width:5.5;}
+.bd-node.dragging{opacity:.85;}
+.bd-nlbl{font:700 12px 'Inter',sans-serif; fill:#33453d; pointer-events:none;
+  paint-order:stroke; stroke:#fff; stroke-width:3.5px; stroke-linejoin:round;}
+.bd-lsign{font:900 15px 'Inter',sans-serif; paint-order:stroke; stroke:#fff; stroke-width:4px; stroke-linejoin:round;}
+.bd-link{transition:stroke-width .15s;} .bd-link:hover{stroke-width:5.5;}
+.bd-halo{transition:opacity .3s, r .3s;}
+.bd-panel{overflow-y:auto; display:flex; flex-direction:column; gap:.45rem; min-height:0;}
+.bd-mix{background:#fff; border:1px solid var(--line); border-radius:11px; padding:.5rem .6rem;}
+.bd-mixrow{display:flex; align-items:center; gap:.4rem; font-size:.72rem; font-weight:700; color:#4a6055; margin-bottom:.22rem;}
+.bd-mixrow:last-child{margin-bottom:0;}
+.bd-mixrow i{font-style:normal; font-family:'Merriweather',serif; font-weight:900; color:var(--forest); min-width:1.1em;}
+.bd-dot{width:9px; height:9px; border-radius:3px; flex:none;}
+.bd-dot.p{background:#2f7d4f;} .bd-dot.a{background:#c9722b;}
+.bd-dot.v{background:#1C7293;} .bd-dot.h{background:#A4373A;}
+.bd-mixrow span:not(.bd-dot){min-width:5.2em;}
+.bd-mb{flex:1; height:7px; background:#eef2ef; border-radius:4px; overflow:hidden;}
+.bd-mb b{display:block; height:100%; width:0; border-radius:4px; transition:width .35s;}
+.bd-mixrow:nth-child(1) .bd-mb b{background:#c9722b;}
+.bd-mixrow:nth-child(2) .bd-mb b{background:#2f7d4f;}
+.bd-mixrow:nth-child(3) .bd-mb b{background:#1C7293;}
+.bd-checks{display:flex; flex-direction:column; gap:.14rem;}
+.bd-check{display:flex; align-items:flex-start; gap:.35rem; font-size:.72rem; font-weight:600; color:#96a49d; line-height:1.3;}
+.bd-check span{font-weight:900; color:#c5d0ca;}
+.bd-check.ok{color:var(--forest);} .bd-check.ok span{color:#2f7d4f;}
+.bd-loops{background:#fff; border:1px solid var(--line); border-radius:11px; padding:.5rem .6rem;}
+.bd-loops-h{font-size:.64rem; font-weight:800; letter-spacing:.07em; text-transform:uppercase; color:#6b7d75;
+  display:flex; justify-content:space-between; gap:.4rem; margin-bottom:.3rem;}
+.bd-lcount{color:var(--forest); letter-spacing:0; text-transform:none; font-size:.9em;}
+.bd-nol{font-size:.7rem; color:#8c9a93; line-height:1.35; font-style:italic;}
+.bd-loop{font-size:.68rem; line-height:1.3; color:#33453d; padding:.2rem .3rem; border-radius:6px; margin-bottom:.12rem;}
+.bd-loop b{font-size:.92em; text-transform:uppercase; letter-spacing:.03em;}
+.bd-loop.rein{background:#fdf1f1;} .bd-loop.rein b{color:#A4373A;}
+.bd-loop.bal{background:#eef6f0;} .bd-loop.bal b{color:#2f7d4f;}
+.bd-loopmore{font-size:.66rem; color:#8c9a93;}
+.bd-sim{background:#fff; border:1px solid var(--line); border-radius:11px; padding:.5rem .6rem;}
+.bd-run{width:100%; font:inherit; font-weight:800; font-size:.82rem; cursor:pointer; color:#fff;
+  background:#BC8A2E; border:none; border-radius:9px; padding:.45rem;}
+.bd-run:hover{filter:brightness(1.08);}
+.bd-runhint{font-size:.7rem; color:#5b6b63; line-height:1.35; margin-top:.3rem;}
+.bd-runhint strong,.bd-runhint b{color:var(--forest);}
+.bd-spark{width:100%; height:auto; margin-top:.2rem;}
+.bd-sparklbl{font:600 8.5px 'Inter',sans-serif; fill:#8c9a93;}
+.bd-verdict{background:#f3f8f5; border-left:4px solid var(--accent); border-radius:9px; padding:.5rem .65rem;
+  font-size:.74rem; line-height:1.45; color:#33453d;}
+.bd-verdict b{color:var(--forest);} .bd-verdict em{color:var(--forest); font-style:italic;}
+@media(max-width:1180px){.bd-body{grid-template-columns:150px 1fr 230px;}}
+
+
+/* ── Module 1 assignment additions ───────────────────────────────────────── */
+.bd-polbtn.active[data-pol="2"]{background:#1C7293; color:#fff;}
+.bd-psub{font-size:.6rem; color:#7d8f80; line-height:1.3; font-style:italic; margin:-.02rem 0 .1rem;}
+.bd-psub b{color:#6a8f2f; font-style:normal;}
+
+/* biome + ecological-characteristics band */
+/* the park band — fixed park name, the sources the sheet restricts you to, and a
+   running tally so Task 1's "three or more" is visible without opening anything */
+.bd-park{display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:.55rem;
+  align-items:center; background:#fff; border:1px solid var(--line); border-radius:11px;
+  padding:.34rem .55rem; margin-bottom:.5rem; box-shadow:0 2px 8px rgba(20,40,30,.05);}
+.bd-parkname{font-family:'Merriweather',serif; font-weight:900; color:var(--forest);
+  font-size:.72rem; line-height:1.12; padding-right:.55rem; border-right:1px solid var(--line);}
+.bd-bfield{display:flex; flex-direction:column; gap:.06rem; min-width:0;}
+.bd-bfield span{font-size:.56rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:#1C7293;}
+.bd-bfield input{font:inherit; font-size:.71rem; color:#22302b; background:#fbfcfb; min-width:0;
+  border:1px solid var(--line); border-radius:7px; padding:.22rem .4rem;}
+.bd-bfield input:focus{outline:none; border-color:#1C7293; background:#fff;}
+.bd-tally{font-size:.66rem; color:#6b7d75; white-space:nowrap;}
+.bd-tally b{font-family:'Merriweather',serif; font-weight:900; color:var(--forest);}
+.bd-fnote{font-size:.64rem; color:#8c9a93; line-height:1.4; font-style:italic; margin-top:.16rem;}
+
+/* two-group checklist */
+.bd-ckh{display:flex; justify-content:space-between; align-items:baseline; gap:.4rem;
+  font-size:.6rem; font-weight:800; letter-spacing:.07em; text-transform:uppercase; color:#6b7d75;
+  margin:.3rem 0 .14rem; padding-bottom:.1rem; border-bottom:1px solid var(--line);}
+.bd-ckh:first-child{margin-top:0;}
+.bd-ckh b{letter-spacing:0; text-transform:none; font-size:.95em; color:var(--forest);}
+
+/* write-up modal: scrolling body of labelled fields */
+.bd-modal-body{flex:1; min-height:0; overflow-y:auto; display:flex; flex-direction:column;
+  gap:.7rem; padding-right:.35rem;}
+.bd-fsec{display:flex; flex-direction:column; gap:.3rem;}
+.bd-flabel{font-size:.66rem; font-weight:800; letter-spacing:.07em; text-transform:uppercase;
+  color:var(--forest-mid); border-bottom:1px solid var(--line); padding-bottom:.14rem;}
+.bd-flabel em{font-weight:600; letter-spacing:0; text-transform:none; color:#8c9a93; font-style:italic;}
+.bd-frow{display:flex; gap:.35rem; align-items:stretch;}
+.bd-fin{font:inherit; font-size:clamp(.78rem,1.15vw,.9rem); line-height:1.5; color:#22302b;
+  background:#fbfcfb; border:1.5px solid var(--line); border-radius:10px; padding:.42rem .6rem; width:100%;}
+.bd-fin:focus{outline:none; border-color:var(--forest-mid); background:#fff;}
+.bd-fkind{width:auto; flex:none; font-weight:800; color:var(--forest); cursor:pointer;}
+.bd-fta{resize:vertical;}
+.bd-fta.short{min-height:3.1rem;}
+.bd-modal-ta{min-height:min(19vh,8.5rem);}
+.bd-cb{display:flex; align-items:center; gap:.4rem; font-size:.76rem; color:#5b6b63; cursor:pointer;}
+.bd-cb input{accent-color:var(--forest-mid); width:.9rem; height:.9rem;}
+
+@media(max-width:1180px){
+  .bd-park{grid-template-columns:auto minmax(0,1fr); gap:.3rem;}
+  .bd-tally{display:none;}
+  .bd-bfield input{font-size:.66rem;}
+}
+
+/* custom pieces + rename-in-place */
+.bd-pitem.bd-pcustom{border-style:dashed; color:#6b7d75;}
+.bd-pitem.bd-pcustom span{font-style:italic;}
+.bd-pitem.bd-pcustom:hover{color:#33453d;}
+.bd-rename{position:absolute; z-index:14; transform:translateX(-50%);
+  display:flex; flex-direction:column; align-items:center; gap:.14rem;}
+.bd-renameinput{font:inherit; font-weight:700; font-size:.78rem; text-align:center; color:#22302b;
+  background:#fff; border:2px solid var(--accent); border-radius:9px; padding:.24rem .5rem; width:11.5rem;
+  box-shadow:0 8px 22px rgba(20,40,30,.2);}
+.bd-renameinput:focus{outline:none;}
+.bd-renamehint{font-size:.58rem; font-weight:600; color:#6b7d75; background:#fff;
+  border-radius:4px; padding:.02rem .3rem; box-shadow:0 2px 6px rgba(20,40,30,.1);}
+
+/* the quiet ⓘ Info button, and its panel — set as a reference sheet rather than
+   a step-by-step: serif prose, hairline section rules, a real key for the arrows,
+   and UI button names in the sans face instead of glyphs scattered through text */
+.bd-info{font:inherit; font-weight:700; font-size:.74rem; cursor:pointer; color:#8c9a93;
+  background:none; border:none; padding:.35rem .3rem; border-radius:8px;}
+.bd-info:hover{color:var(--forest-mid); text-decoration:underline; text-underline-offset:.18em;}
+.bd-info-card{width:min(52rem,100%);}
+[data-infomodal]{padding-block:clamp(.6rem,2.2vh,1.3rem);}  /* fit the whole sheet at 810px */
+
+.bd-i-lead{font-family:'Merriweather',serif; font-size:clamp(.79rem,1.19vw,.92rem);
+  line-height:1.55; color:#2b3a34;}
+.bd-i-p{font-family:'Merriweather',serif; font-size:clamp(.75rem,1.12vw,.86rem);
+  line-height:1.55; color:#2f3f38; margin-top:.4rem;}
+.bd-i-p i{font-style:italic; color:var(--forest);}
+.bd-i-muted{color:#6b7d75;}
+.bd-i-muted i{color:#5b6b63;}
+
+/* "THE THREE ARROWS ─────────" section divider */
+.bd-i-rule{display:flex; align-items:center; gap:.7rem; margin:.72rem 0 .38rem;}
+.bd-i-rule span{flex:none; font-size:.6rem; font-weight:800; letter-spacing:.17em;
+  text-transform:uppercase; color:#8a9a92;}
+.bd-i-rule::after{content:""; flex:1; height:1px; background:var(--line);}
+
+.bd-i-key{width:100%; border-collapse:collapse;}
+.bd-i-key th,.bd-i-key td{text-align:left; vertical-align:baseline;
+  padding:.26rem .5rem .26rem 0; border-bottom:1px solid var(--line);}
+.bd-i-key tr:last-child th,.bd-i-key tr:last-child td{border-bottom:0;}
+.bd-i-key th{white-space:nowrap; width:1%; padding-right:1.1rem;
+  font-family:'Inter',sans-serif; font-weight:700;
+  font-size:clamp(.72rem,1.08vw,.84rem); color:#4a6055;}
+.bd-i-key th b{font-weight:900; font-size:1.05em;}
+.bd-i-key th b.pos{color:#2f7d4f;} .bd-i-key th b.neg{color:#A4373A;} .bd-i-key th b.eng{color:#1C7293;}
+.bd-i-key td{font-family:'Merriweather',serif; font-size:clamp(.73rem,1.1vw,.84rem);
+  line-height:1.5; color:#2f3f38;}
+
+/* a control's on-screen name, in the UI's own face so it reads as a label */
+.bd-ui{font-family:'Inter',sans-serif; font-weight:700; font-size:.94em; color:var(--forest);}
+.bd-i b.pos{color:#2f7d4f; font-weight:900;} .bd-i b.neg{color:#A4373A; font-weight:900;}
+
+
+/* ── standalone-only: no deck chrome, so reclaim the side padding ── */
+/* The engine pins .footer bottom-right, where it lands on top of the analysis
+   panel's "Shock the system" button. Reserve a strip for it and centre it. */
+.bd-root{padding-inline:clamp(.9rem,2.6vw,2rem); bottom:1.5rem;}
+.footer{left:0; right:0; bottom:.4rem; text-align:center; color:#9bb0a6;}
+/* narrow screens: become a normal scrolling page, palette wraps into chip rows */
+@media(max-width:900px){
+  body{overflow:auto;}
+  .deck{position:static;}
+  .slide{position:static; min-height:100vh; display:block;}
+  .bd-root{position:static; padding-bottom:1rem;}
+  .bd-body{grid-template-columns:1fr; gap:.8rem;}
+  .bd-palette{overflow:visible; gap:.6rem;}
+  .bd-pgroup{display:flex; flex-flow:row wrap; gap:.28rem;}
+  .bd-ptitle{flex:1 0 100%;}
+  .bd-psub{flex:1 0 100%;}
+  .bd-pitem{flex:0 1 auto;}
+  .bd-phint{display:none;}
+  .bd-park{grid-template-columns:1fr; gap:.45rem;}
+  .bd-canvaswrap{min-height:62vh;}
+  .bd-panel{overflow:visible;}
+  .bd-top{align-items:flex-start;}
+  .footer{position:static; text-align:right; padding-top:.8rem;}
+}
+</style>
+</head>
+<body>
+<div class="deck">
+<section class="slide bd-slide active" data-type="setbuilder" style="--accent:#1C7293">
+  <div class="bd-root" data-bd>
+    <div class="bd-top">
+      <div class="bd-titlewrap">
+        <div class="eyebrow">SOS 110 &nbsp;·&nbsp; Module 2 Review</div>
+        <h2 class="heading bd-h">Ecosystem Services of Grand Canyon National Park</h2>
+      </div>
+      <div class="bd-toolbar">
+        <input class="bd-name" data-name type="text" maxlength="42" placeholder="Title of your work…" aria-label="Title of your work">
+        <input class="bd-name bd-who" data-author type="text" maxlength="42" placeholder="Your name" aria-label="Your name">
+        <div class="bd-modes" role="group" aria-label="Tool">
+          <button class="bd-mode active" type="button" data-mode="move" title="Drag components around">✋ Move</button>
+          <button class="bd-mode" type="button" data-mode="link" title="Drag from one component to another to connect them">➜ Connect</button>
+          <button class="bd-mode" type="button" data-mode="del" title="Click a component or arrow to remove it">✂ Remove</button>
+        </div>
+        <div class="bd-pol" data-polwrap hidden>
+          <button class="bd-polbtn active" type="button" data-pol="1" title="A plant or animal underpins a service">+ sustains</button>
+          <button class="bd-polbtn" type="button" data-pol="2" title="A service delivers a sustainability outcome">➜ provides</button>
+          <button class="bd-polbtn" type="button" data-pol="-1" title="A human pressure degrades a service">− harms</button>
+        </div>
+        <select class="bd-preset" data-preset aria-label="Load an example">
+          <option value="">Load an example…</option>
+          <optgroup label="Worked examples — the shape of the answer, not the answer">
+            <option value="springs">Freshwater springs &amp; desert megafauna</option>
+            <option value="soil">Soil stabilisation &amp; the Colorado River</option>
+          </optgroup>
+        </select>
+        <button class="bd-info" type="button" data-infobtn title="How this tool works">&#9432; Info</button>
+        <button class="bd-btn ghost" type="button" data-clear>Clear</button>
+        <button class="bd-btn expl" type="button" data-explbtn title="Task 3 — the challenge, the link, the human factor and the solution">✎ Task 3 write-up</button>
+        <button class="bd-btn pdf" type="button" data-pdf title="Opens your browser's print dialog — choose “Save as PDF”">⤓ Save as PDF</button>
+      </div>
+    </div>
+
+    <!-- ── the park is fixed; the sheet restricts sources, so that is what the
+         band collects (Task 1) ── -->
+    <div class="bd-park" data-parkbar>
+      <div class="bd-parkname">Grand Canyon<br>National Park</div>
+      <label class="bd-bfield wide"><span>Official sources used &mdash; nps.gov or usgs.gov only</span>
+        <input data-sources type="text" maxlength="200"
+          placeholder="paste the pages your plant and animal names came from"></label>
+      <div class="bd-tally" data-tally></div>
+    </div>
+
+    <div class="bd-body">
+      <!-- ── palette ── -->
+      <div class="bd-palette" data-palette>
+        <div class="bd-phint">Drag a piece onto the canvas &mdash; or just click it.
+          <b>Double-click a piece to rename it.</b></div>
+      </div>
+
+      <!-- ── canvas ── -->
+      <div class="bd-canvaswrap">
+        <svg viewBox="0 0 1000 620" class="bd-svg" data-svg preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <filter id="bdRough" x="-8%" y="-8%" width="116%" height="116%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="3" seed="31" result="n"/>
+              <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" xChannelSelector="R" yChannelSelector="G"/>
+            </filter>
+            <pattern id="bdPaper" width="26" height="26" patternUnits="userSpaceOnUse">
+              <path d="M26 0 L0 0 0 26" fill="none" stroke="#e8efe9" stroke-width="1.2"/>
+            </pattern>
+          </defs>
+          <rect x="0" y="0" width="1000" height="620" fill="url(#bdPaper)"/>
+          <g data-links></g>
+          <g data-nodes></g>
+          <g data-rubber></g>
+          <text data-empty x="500" y="316" text-anchor="middle" class="bd-empty">drop your first component here</text>
+        </svg>
+        <div class="bd-rename" data-rename hidden>
+          <input class="bd-renameinput" data-renameinput type="text" maxlength="28" spellcheck="false"
+            aria-label="Rename this component">
+          <div class="bd-renamehint">Enter to save &middot; Esc to cancel</div>
+        </div>
+      </div>
+
+      <!-- ── analysis ── -->
+      <div class="bd-panel">
+        <div class="bd-mix">
+          <div class="bd-mixrow"><span class="bd-dot p"></span>Plants<i data-c="plant">0</i><div class="bd-mb"><b data-mb="plant"></b></div></div>
+          <div class="bd-mixrow"><span class="bd-dot a"></span>Animals<i data-c="animal">0</i><div class="bd-mb"><b data-mb="animal"></b></div></div>
+          <div class="bd-mixrow"><span class="bd-dot v"></span>Services<i data-c="serv">0</i><div class="bd-mb"><b data-mb="serv"></b></div></div>
+          <div class="bd-mixrow"><span class="bd-dot h"></span>Pressures<i data-c="press">0</i><div class="bd-mb"><b data-mb="press"></b></div></div>
+        </div>
+        <div class="bd-checks" data-checks></div>
+        <div class="bd-loops" data-loops></div>
+        <div class="bd-sim">
+          <button class="bd-run" type="button" data-run>⚡ Shock the system</button>
+          <div class="bd-runhint" data-runhint>Click a component first, then shock it — and watch what your system does with a small change.</div>
+          <svg viewBox="0 0 260 74" class="bd-spark" data-spark hidden></svg>
+        </div>
+        <div class="bd-verdict" data-verdict></div>
+      </div>
+    </div>
+
+    <!-- ── explanation ── -->
+    <div class="bd-modal" data-modal hidden>
+      <div class="bd-modal-card" role="dialog" aria-modal="true" aria-label="Task 3 impact analysis">
+        <div class="bd-modal-head">
+          <h3>Task 3 &middot; Sustainability Impact Analysis</h3>
+          <button class="bd-modal-x" type="button" data-modal-close aria-label="Close">&times;</button>
+        </div>
+        <p class="bd-modal-hint" data-modal-hint>Four to six sentences, assembled from four
+          parts. They print as a single paragraph beneath your diagram, which is what the sheet
+          asks you to hand in.</p>
+        <div class="bd-modal-body">
+          <div class="bd-fsec">
+            <div class="bd-flabel">1 &middot; The challenge <em>&mdash; one major threat to the park</em></div>
+            <input class="bd-fin" data-t3chal type="text" maxlength="130" spellcheck="true"
+              placeholder="e.g. a two-decade drought across the Colorado Plateau" aria-label="The challenge">
+          </div>
+          <div class="bd-fsec">
+            <div class="bd-flabel">2 &middot; The link <em>&mdash; which service from Task 2 it harms most</em></div>
+            <select class="bd-fin" data-t3link aria-label="The ecosystem service most harmed">
+              <option value="">Put some services on the diagram first&hellip;</option>
+            </select>
+            <div class="bd-fnote" data-t3linknote></div>
+          </div>
+          <div class="bd-fsec">
+            <div class="bd-flabel">3 &middot; The human factor <em>&mdash; what drives or accelerates it</em></div>
+            <textarea class="bd-fin bd-fta short" data-t3human spellcheck="true" rows="3"
+              placeholder="Upstream dam management, over-tourism, groundwater pumping for development — say how the human activity accelerates the threat."></textarea>
+          </div>
+          <div class="bd-fsec">
+            <div class="bd-flabel">4 &middot; The solution <em>&mdash; one viable strategy</em></div>
+            <textarea class="bd-fin bd-fta short" data-t3sol spellcheck="true" rows="3"
+              placeholder="Who would have to act, and which arrow on your diagram would it change?"></textarea>
+          </div>
+        </div>
+        <div class="bd-modal-foot">
+          <span class="bd-modal-note">These four parts print as one paragraph on your PDF.</span>
+          <button class="bd-btn" type="button" data-expl-clear>Clear</button>
+          <button class="bd-btn pdf" type="button" data-modal-done>Done</button>
+        </div>
+      </div>
+    </div>
+    <!-- ── shock result ── -->
+    <div class="bd-modal bd-shockmodal" data-shockmodal hidden>
+      <div class="bd-shock-card" role="dialog" aria-modal="true" aria-label="What the shock did">
+        <div class="bd-shock-status"><span class="bd-shock-dot"></span><span class="bd-shock-word" data-shock-word></span></div>
+        <p class="bd-shock-lead" data-shock-lead></p>
+        <p class="bd-shock-body" data-shock-body></p>
+        <div class="bd-shock-sparkwrap" data-shock-sparkwrap>
+          <svg class="bd-shock-spark" data-shock-spark viewBox="0 0 260 78"></svg>
+          <div class="bd-shock-cap">The characteristic shape of this kind of response over time.</div>
+        </div>
+        <div class="bd-shock-foot">
+          <button class="bd-btn" type="button" data-shock-again>↻ Shock again</button>
+          <button class="bd-btn pdf" type="button" data-shock-close>Got it</button>
+        </div>
+      </div>
+    </div>
+    <!-- ── how this works: a reference panel, not a walkthrough ── -->
+    <div class="bd-modal" data-infomodal hidden>
+      <div class="bd-modal-card bd-info-card" role="dialog" aria-modal="true" aria-label="How this tool works">
+        <div class="bd-modal-head">
+          <h3>How this works</h3>
+          <button class="bd-modal-x" type="button" data-info-close aria-label="Close">&times;</button>
+        </div>
+        <div class="bd-modal-body bd-i">
+          <p class="bd-i-lead">This builds the mind map the Module 2 Review asks for: the park&rsquo;s
+            native biodiversity, the four kinds of service it provides, and what one human-driven
+            threat does to them &mdash; then saves the whole thing as a PDF to hand in.</p>
+
+          <div class="bd-i-rule"><span>The three arrows, one per task</span></div>
+          <table class="bd-i-key">
+            <tr><th><b class="pos">+</b>&ensp;sustains</th>
+                <td>A plant or an animal underpins a service. Cottonwood along a seep sustains
+                    the habitat other species depend on. <i>Task 1 into Task 2.</i></td></tr>
+            <tr><th><b class="eng">&rarr;</b>&ensp;provides</th>
+                <td>A service delivers a concrete sustainability outcome. This is the arrow
+                    Task 2 explicitly asks for, and the checklist wants one on
+                    <i>every</i> service you place.</td></tr>
+            <tr><th><b class="neg">&minus;</b>&ensp;harms</th>
+                <td>A human pressure degrades a service. This is Task 3&rsquo;s
+                    <i>link</i>, drawn rather than just asserted.</td></tr>
+          </table>
+          <p class="bd-i-p">Switch to <span class="bd-ui">Connect</span> and drag from one piece
+            to another to draw one; clicking an arrow already on the canvas cycles it through the
+            three. <span class="bd-ui">Remove</span> deletes pieces and arrows alike.</p>
+
+          <div class="bd-i-rule"><span>Two things worth knowing</span></div>
+          <p class="bd-i-p"><i>Find your own examples.</i> The sheet says past teams used
+            freshwater springs and soil stabilisation, and that yours must be new. Every palette
+            group therefore ends in a blank <i>Custom</i> piece, and you can double-click any
+            piece to retitle it. Renaming changes the label only, so the checklist goes on working.</p>
+          <p class="bd-i-p"><i>Only nps.gov and usgs.gov count.</i> The band above the diagram is
+            where you record the pages your plant and animal names came from, and it prints on
+            the PDF next to your name.</p>
+
+          <div class="bd-i-rule"><span>Finishing</span></div>
+          <p class="bd-i-p">The panel on the right tracks all three tasks as you work, and names
+            any feedback loop it finds &mdash; which is what Task 2&rsquo;s third column is asking
+            for. When the checklist is full, open <span class="bd-ui">Task 3 write-up</span> for
+            the four-part paragraph, then <span class="bd-ui">Save as PDF</span>. Every student
+            submits their own copy.</p>
+          <p class="bd-i-p bd-i-muted">The two worked examples are the ones the sheet names as
+            already used, precisely so you cannot hand them in. Load one to see the shape of a
+            finished answer &mdash; four categories, every service pointing at an outcome, one
+            pressure doing damage, one loop closing &mdash; then build your own.</p>
+        </div>
+        <div class="bd-modal-foot">
+          <span class="bd-modal-note">Nothing is uploaded or stored &mdash; your work lives in this browser tab until you save the PDF.</span>
+          <button class="bd-btn pdf" type="button" data-info-close>Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">SOS 110 &middot; Building a Sustainable World &nbsp;·&nbsp; Module 2 Review</div>
+  <script>(function(){
+    var root=document.currentScript.closest('.bd-slide');
+    if(!root||root.dataset.wired)return; root.dataset.wired='1';
+    var wrap=root.querySelector('[data-bd]'), svg=wrap.querySelector('[data-svg]');
+    var NAV=["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"," ","PageUp","PageDown","Home","End"];
+    wrap.addEventListener('keydown',function(e){ if(NAV.indexOf(e.key)>-1) e.stopPropagation(); });
+    var NS='http://www.w3.org/2000/svg';
+    function el(n,at){ var e=document.createElementNS(NS,n); for(var k in at) e.setAttribute(k,at[k]); return e; }
+
+    /* Eight palette groups, mapped one-to-one onto the sheet's three tasks:
+       plants + animals are Task 1, the four service categories are Task 2, and
+       pressures + outcomes are what Task 3's paragraph is written about. */
+    var DOM={
+      plant: {n:'Plants (Task 1)',         c:'#2f7d4f', f:'#e4f2e8'},
+      animal:{n:'Animals (Task 1)',        c:'#c9722b', f:'#fbeade'},
+      prov:  {n:'Provisioning services',   c:'#1C7293', f:'#e2eff5'},
+      reg:   {n:'Regulating services',     c:'#2a7d7b', f:'#e0f0ef'},
+      sup:   {n:'Supporting services',     c:'#6a8f2f', f:'#f0f5e3'},
+      cult:  {n:'Cultural services',       c:'#6D597A', f:'#efeaf3'},
+      press: {n:'Human pressures',         c:'#A4373A', f:'#fbeeee'},
+      out:   {n:'Sustainability outcomes', c:'#BC8A2E', f:'#fbf5e6'}
+    };
+    var VIS=['plant','animal','prov','reg','sup','cult','press','out'];
+    var SERVICE=['prov','reg','sup','cult'];          /* the four Task 2 categories */
+    var SERVNAME={prov:'Provisioning', reg:'Regulating', sup:'Supporting', cult:'Cultural'};
+    var ENERGY='#1C7293';                /* the "provides" arrow (service → outcome) */
+
+    /* ── hand-drawn icons (drawn in a 44×44 box centred on 0,0) ── */
+    var ICON={
+      house:'M-15 4 L0 -13 L15 4 M-11 2 v14 h22 v-14 M-3 16 v-9 h7 v9',
+      work:'M-14 -4 h28 v18 h-28 Z M-5 -4 v-6 h10 v6 M-14 4 h28',
+      gov:'M-16 14 h32 M-13 14 v-14 M-4 14 v-14 M5 14 v-14 M14 14 v-14 M-17 -2 L0 -14 L17 -2 Z',
+      culture:'M-15 -16 h12 q4 0 4 4 v6 q0 4 -4 4 h-6 l-5 5 v-5 h-1 q-4 0 -4 -4 v-6 q0 -4 4 -4 Z'+'M-1 -2 h12 q4 0 4 4 v6 q0 4 -4 4 h-1 v5 l-5 -5 h-6 q-4 0 -4 -4 v-6 q0 -4 4 -4 Z',
+      market:'M-16 -6 h32 M-13 -6 v18 h26 v-18 M-9 -6 q0 -9 9 -9 q9 0 9 9 M-4 4 h8',
+      equity:'M0 -14 v26 M-14 -8 h28 M-14 -8 l-5 12 h10 Z M14 -8 l-5 12 h10 Z M-9 14 h18',
+      water:'M0 -16 q13 15 13 24 a13 13 0 0 1 -26 0 q0 -9 13 -24 Z',
+      soil:'M-16 2 q16 8 32 0 M-16 8 q16 8 32 0 M-16 14 q16 8 32 0 M-6 2 q-2 -14 6 -18 M6 2 q2 -10 -4 -14',
+      air:'M-16 -6 q10 -12 20 -2 q12 -4 12 6 M-14 4 h22 q9 0 5 8 M-10 12 h14',
+      wild:'M-14.9 -7 a3.4 4.4 0 1 0 6.8 0 a3.4 4.4 0 1 0 -6.8 0'+'M-7.6 -13.5 a3.4 4.4 0 1 0 6.8 0 a3.4 4.4 0 1 0 -6.8 0'+'M0.8 -13.5 a3.4 4.4 0 1 0 6.8 0 a3.4 4.4 0 1 0 -6.8 0'+'M8.1 -7 a3.4 4.4 0 1 0 6.8 0 a3.4 4.4 0 1 0 -6.8 0'+'M0 -1 q8 0 10.5 6.5 q2 7.5 -4.5 10 q-6 2 -12 0 q-6.5 -2.5 -4.5 -10 q2.5 -6.5 10.5 -6.5 Z',
+      climate:'M0 -15 a9 9 0 1 0 0.1 0 M0 -26 v5 M0 21 v5 M-19 -1 h-6 M19 -1 h6 M-14 -15 l-4 -4 M14 -15 l4 -4 M-14 13 l-4 4 M14 13 l4 4',
+      forest:'M0 -16 l11 16 h-7 l9 13 h-26 l9 -13 h-7 Z M0 13 v6 M-13 6 l-6 13 h12',
+      grid:'M-8 -16 L2 -3 h-8 L4 16 M-16 12 v-24 M16 12 v-24 M-16 -12 h32 M-16 12 h32',
+      road:'M-14 16 L-4 -16 M14 16 L4 -16 M0 -12 v6 M0 0 v6 M0 12 v4',
+      pipe:'M-16 -8 h14 v16 h20 M-2 -8 a7 7 0 0 1 14 0 v4 M10 12 h8 M-16 -14 v12',
+      factory:'M-16 14 v-16 l10 6 v-6 l10 6 v-6 l12 6 v10 Z M6 -2 v-14 h6 v14 M-9 4 q-3 -8 3 -12',
+      data:'M-14 -10 a14 6 0 1 0 28 0 a14 6 0 1 0 -28 0 M-14 -10 v20 a14 6 0 0 0 28 0 v-20 M-14 0 a14 6 0 0 0 28 0',
+      waste:'M-12 -6 h24 l-3 20 h-18 Z M-15 -6 h30 M-6 -6 v-6 h12 v6 M-4 0 v12 M4 0 v12',
+      /* ── Grand Canyon: plants and animals (Task 1) ── */
+      pine:'M0 -19 l10 15 h-6 l9 13 h-7 l9 12 h-30 l9 -12 h-7 l9 -13 h-6 Z M0 21 v-6',
+      pinyon:'M-2 21 v-16 M-2 5 q-13 -1 -13 -11 q13 -1 13 11 M-2 0 q13 -1 13 -11 q-13 -1 -13 11 M6 21 q0 -9 6 -12',
+      shrub:'M-16 18 q2 -14 8 -18 M-6 18 q1 -18 3 -22 M4 18 q0 -13 7 -17 M13 18 q-1 -9 4 -12 M-19 18 h38',
+      willow:'M0 20 v-22 M0 -2 q-15 -2 -17 -13 M0 -2 q15 -2 17 -13 M0 -10 q-9 -4 -10 -12 M0 -10 q9 -4 10 -12',
+      condor:'M0 -9 a6 6 0 1 0 .1 0 M5 -12 l8 2 l-8 4 M-5 0 q-17 -3 -23 10 q15 5 22 -3 M5 0 q17 -3 23 10 q-15 5 -22 -3 M0 5 v11',
+      squirrel:'M-4 7 a9 9 0 1 0 .1 0 M-10 0 q-4 -10 1 -13 q4 4 2 12 M6 5 q12 -5 9 -16 q-2 -10 -11 -6 M-7 4 a1.4 1.4 0 1 0 .1 0',
+      bighorn:'M-2 5 a10 9 0 1 0 .2 0 M-8 -4 q-12 -3 -10 -12 q9 -4 12 7 M6 -4 q12 -3 10 -12 q-9 -4 -12 7 M-5 6 a1.3 1.3 0 1 0 .1 0 M5 6 a1.3 1.3 0 1 0 .1 0',
+      chub:'M-17 0 q10 -11 19 -11 q11 0 15 11 q-4 11 -15 11 q-9 0 -19 -11 Z M-17 0 l-5 -10 l8 5 M9 -4 a1.6 1.6 0 1 0 .1 0 M-2 -9 q2 9 0 18',
+      puma:'M-11 -7 a4 5 0 1 0 .1 0 M-3 -13 a4 5 0 1 0 .1 0 M5 -13 a4 5 0 1 0 .1 0 M12 -6 a4 5 0 1 0 .1 0 M0 0 q9 0 11 7 q2 8 -5 10 q-6 2 -12 0 q-7 -2 -5 -10 q2 -7 11 -7 Z',
+      /* ── ecosystem services (Task 2) ── */
+      spring:'M0 -17 q13 15 13 24 a13 13 0 0 1 -26 0 q0 -9 13 -24 Z M-5 4 q5 5 10 0',
+      forage:'M-15 17 q2 -20 -3 -27 M-5 17 q1 -24 4 -29 M5 17 q0 -20 8 -26 M-18 17 h36',
+      herbal:'M0 19 v-20 M0 -1 q-14 1 -14 -11 q14 -1 14 11 M0 -6 q14 1 14 -11 q-14 -1 -14 11',
+      flood:'M-18 -2 q9 -8 18 0 q9 8 18 0 M-18 8 q9 -8 18 0 q9 8 18 0 M-9 -14 l9 -5 l9 5 M0 -19 v12',
+      carbon:'M-16 -4 q10 -13 20 -3 q13 -4 12 7 M-14 6 h24 q9 0 5 8 M-9 15 h15 M-4 -6 a6 6 0 1 0 .1 0',
+      purify:'M-14 -14 h28 l-10 13 v14 l-8 5 v-19 Z M-6 -6 h12',
+      bee:'M0 -3 a8 10 0 1 0 .1 0 M-8 -3 h16 M-8 3 h16 M-6 -12 q-12 -8 -16 2 q10 6 16 -2 M6 -12 q12 -8 16 2 q-10 6 -16 -2 M-3 -14 l-4 -6 M3 -14 l4 -6',
+      soilform:'M-17 0 h34 M-17 7 h34 M-17 14 h34 M-7 0 q-2 -15 6 -19 M7 0 q3 -11 -4 -15 M-12 7 a1.4 1.4 0 1 0 .1 0 M9 14 a1.4 1.4 0 1 0 .1 0',
+      cycle:'M-13 -6 a13 13 0 1 1 4 16 M-13 -6 l-4 -8 M-13 -6 l9 -3 M-9 10 l9 4 M-9 10 l1 -9',
+      habitat:'M-15 3 L0 -12 L15 3 M-11 1 v14 h22 v-14 M-3 15 v-9 h7 v9 M0 -12 v-5',
+      primary:'M0 -16 a8 8 0 1 0 .1 0 M0 -26 v4 M-17 -8 h-5 M17 -8 h5 M-12 -19 l-3 -3 M12 -19 l3 -3 M0 20 v-14 M0 8 q-12 0 -12 -10 q12 0 12 10',
+      hiker:'M2 -15 a4 4 0 1 0 .1 0 M2 -9 l-6 10 l3 9 l-5 9 M-1 1 l9 5 l2 11 M-4 -6 l-9 5 M8 -4 l7 6 M15 2 v16',
+      heritage:'M-10 -13 h20 l4 9 q0 14 -14 18 q-14 -4 -14 -18 Z M-4 -4 a4 4 0 1 0 .1 0 M0 0 v8',
+      research:'M-4 -5 a11 11 0 1 0 .1 0 M4 4 L16 16 M-9 -5 h10 M-4 -10 v10',
+      scenic:'M-19 12 L-6 -6 L2 5 L9 -3 L19 12 Z M-19 12 h38 M8 -10 a4 4 0 1 0 .1 0',
+      /* ── human pressures (Task 3) ── */
+      dam:'M-16 -14 v28 M-8 -14 v28 M0 -14 v28 M8 -14 v28 M16 -14 v28 M-16 -14 h32 M-16 14 h32 M-20 4 q10 -6 20 0 q10 6 20 0',
+      crowd:'M-11 -8 a4 4 0 1 0 .1 0 M0 -11 a4.5 4.5 0 1 0 .1 0 M11 -8 a4 4 0 1 0 .1 0 M-18 8 q2 -8 7 -8 q5 0 7 6 M-7 12 q2 -10 7 -10 q5 0 7 10 M4 6 q2 -6 7 -6 q5 0 7 8',
+      well:'M-13 -6 h26 l-3 22 h-20 Z M-16 -6 h32 M0 -6 v-13 M-8 -19 h16 M-6 2 h12',
+      invasive:'M-3 20 v-18 M-3 2 q-13 2 -14 -9 q13 -2 14 9 M-3 -4 q13 2 14 -9 q-13 -2 -14 9 M9 20 q-2 -8 4 -12 M-14 20 q2 -7 -3 -11',
+      heat:'M0 -18 a8 8 0 1 0 .1 0 M0 -28 v4 M-17 -10 h-5 M17 -10 h5 M-12 -21 l-3 -3 M12 -21 l3 -3 M-4 2 v12 a5 5 0 1 0 8 0 v-12 Z M0 6 v6',
+      /* ── the thing every service must point at ── */
+      outcome:'M-9 18 v-34 h20 l-5 7 l5 7 h-20 M-9 -16 a3 3 0 1 0 .1 0',
+      /* a blank piece you name yourself — every group ends in one */
+      custom:'M-16 17 h32 M-14 6 L1 -9 l7 7 L-7 13 Z M-14 6 l-2 8 l8 -1 M1 -9 l4 -4 q2 -2 4 0 l3 3 q2 2 0 4 l-4 4'
+    };
+    /* d = the group that drives the checks; v = the palette group it is drawn in
+       (identical here — Module 1 needed them to differ so trophic pieces could
+       still count as ecological; Module 2 has no such split).
+       Every group ends in a Custom piece, because the sheet tells students to find
+       their OWN examples and explicitly says past examples are off limits. */
+    var TYPES=[
+      {id:'ponderosa',d:'plant', ic:'pine',   l:'Ponderosa pine forest'},
+      {id:'pinyon',   d:'plant', ic:'pinyon', l:'Piñon-juniper woodland'},
+      {id:'scrub',    d:'plant', ic:'shrub',  l:'Desert scrub'},
+      {id:'riparian', d:'plant', ic:'willow', l:'Riparian cottonwood'},
+      {id:'cust_plant',d:'plant',ic:'custom', l:'Custom…', custom:true, dflt:'Name this plant'},
+
+      {id:'condor',   d:'animal',ic:'condor',   l:'California condor'},
+      {id:'kaibab',   d:'animal',ic:'squirrel', l:'Kaibab squirrel'},
+      {id:'bighorn',  d:'animal',ic:'bighorn',  l:'Desert bighorn sheep'},
+      {id:'chub',     d:'animal',ic:'chub',     l:'Humpback chub'},
+      {id:'puma',     d:'animal',ic:'puma',     l:'Mountain lion'},
+      {id:'cust_animal',d:'animal',ic:'custom', l:'Custom…', custom:true, dflt:'Name this animal'},
+
+      {id:'spring',   d:'prov', ic:'spring',  l:'Freshwater springs'},
+      {id:'forage',   d:'prov', ic:'forage',  l:'Forage & browse'},
+      {id:'herbal',   d:'prov', ic:'herbal',  l:'Food & medicinal plants'},
+      {id:'cust_prov',d:'prov', ic:'custom',  l:'Custom…', custom:true, dflt:'Name this service'},
+
+      {id:'flood',    d:'reg',  ic:'flood',   l:'Flood & sediment control'},
+      {id:'carbon',   d:'reg',  ic:'carbon',  l:'Carbon storage'},
+      {id:'purify',   d:'reg',  ic:'purify',  l:'Water purification'},
+      {id:'pollinate',d:'reg',  ic:'bee',     l:'Pollination'},
+      {id:'cust_reg', d:'reg',  ic:'custom',  l:'Custom…', custom:true, dflt:'Name this service'},
+
+      {id:'soilform', d:'sup',  ic:'soilform',l:'Soil formation'},
+      {id:'nutrient', d:'sup',  ic:'cycle',   l:'Nutrient cycling'},
+      {id:'habitat',  d:'sup',  ic:'habitat', l:'Habitat provision'},
+      {id:'primary',  d:'sup',  ic:'primary', l:'Primary production'},
+      {id:'cust_sup', d:'sup',  ic:'custom',  l:'Custom…', custom:true, dflt:'Name this service'},
+
+      {id:'recreation',d:'cult',ic:'hiker',   l:'Recreation & tourism'},
+      {id:'heritage', d:'cult', ic:'heritage',l:'Indigenous heritage'},
+      {id:'research', d:'cult', ic:'research',l:'Scientific research'},
+      {id:'scenic',   d:'cult', ic:'scenic',  l:'Scenic & spiritual value'},
+      {id:'cust_cult',d:'cult', ic:'custom',  l:'Custom…', custom:true, dflt:'Name this service'},
+
+      {id:'dam',      d:'press',ic:'dam',     l:'Glen Canyon Dam'},
+      {id:'crowd',    d:'press',ic:'crowd',   l:'Over-tourism'},
+      {id:'well',     d:'press',ic:'well',    l:'Groundwater pumping'},
+      {id:'invasive', d:'press',ic:'invasive',l:'Invasive species'},
+      {id:'heat',     d:'press',ic:'heat',    l:'Drought & warming'},
+      {id:'cust_press',d:'press',ic:'custom', l:'Custom…', custom:true, dflt:'Name this pressure'},
+
+      {id:'outcome',  d:'out',  ic:'outcome', l:'Outcome…', custom:true, dflt:'Name the outcome'}
+    ];
+    var TMAP={}; TYPES.forEach(function(t){ TMAP[t.id]=t; });
+    function visOf(t){ return t.v||t.d; }
+
+    /* ── state ── */
+    var nodes=[], links=[], uid=1, mode='move', pol=1, selected=null, simVals={};
+    var report={cnt:{soc:0,eco:0,tec:0}, cross:0, loops:[], tri:false, checks:[], verdict:''};
+    var gNodes=wrap.querySelector('[data-nodes]'), gLinks=wrap.querySelector('[data-links]'),
+        gRub=wrap.querySelector('[data-rubber]'), emptyTx=wrap.querySelector('[data-empty]');
+
+    function toSvg(e){ var p=svg.createSVGPoint(); p.x=e.clientX; p.y=e.clientY;
+      var m=svg.getScreenCTM(); return m? p.matrixTransform(m.inverse()) : {x:500,y:310}; }
+
+    /* ── palette ── */
+    var pal=wrap.querySelector('[data-palette]');
+    VIS.forEach(function(dk){
+      var h=document.createElement('div'); h.className='bd-pgroup'; h.style.setProperty('--dc',DOM[dk].c);
+      h.innerHTML='<div class="bd-ptitle">'+DOM[dk].n+'</div>'+
+        (SERVICE.indexOf(dk)>-1
+          ? '<div class="bd-psub">Every service needs a <b>➜ provides</b> arrow into an outcome.</div>'
+          : (dk==='out' ? '<div class="bd-psub">Drop one, then name the outcome it stands for.</div>' : ''));
+      TYPES.filter(function(t){return visOf(t)===dk;}).forEach(function(t){
+        var b=document.createElement('button'); b.type='button';
+        b.className='bd-pitem'+(t.custom?' bd-pcustom':'');
+        b.title=t.custom?'Add a blank piece and name it yourself':'Add '+t.l;
+        b.innerHTML='<svg viewBox="-24 -24 48 48" class="bd-picon"><path d="'+ICON[t.ic||t.id]+
+          '" fill="none" stroke="'+DOM[dk].c+'" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'+
+          '<span>'+t.l+'</span>';
+        b.addEventListener('pointerdown',function(e){ startPaletteDrag(e,b,t); });
+        h.appendChild(b);
+      });
+      pal.appendChild(h);
+    });
+
+    function startPaletteDrag(e,btn,t){
+      e.preventDefault();
+      var p=toSvg(e);
+      var n=addNode(t.id, Math.max(60,Math.min(940,p.x)), Math.max(60,Math.min(560,p.y)));
+      n.g.classList.add('dragging');
+      try{ btn.setPointerCapture(e.pointerId); }catch(err){}
+      function mv(ev){ var q=toSvg(ev); n.x=Math.max(52,Math.min(948,q.x)); n.y=Math.max(52,Math.min(566,q.y)); place(n); redrawLinks(); }
+      function up(ev){
+        btn.removeEventListener('pointermove',mv); btn.removeEventListener('pointerup',up); btn.removeEventListener('pointercancel',up);
+        try{ btn.releasePointerCapture(ev.pointerId); }catch(err){}
+        n.g.classList.remove('dragging');
+        var r=svg.getBoundingClientRect();
+        if(ev.clientX<r.left+4||ev.clientX>r.right-4||ev.clientY<r.top+4||ev.clientY>r.bottom-4) autoPlace(n);
+        analyse();
+        if(n.custom) setTimeout(function(){ openRename(n); }, 40);
+      }
+      btn.addEventListener('pointermove',mv); btn.addEventListener('pointerup',up); btn.addEventListener('pointercancel',up);
+    }
+    function autoPlace(n){
+      var slots=[[220,180],[420,150],[640,180],[790,300],[640,450],[420,480],[220,420],[500,310],[300,300],[700,300],[150,300],[850,180],[850,450]];
+      for(var i=0;i<slots.length;i++){
+        var ok=nodes.every(function(m){ return m===n || Math.hypot(m.x-slots[i][0],m.y-slots[i][1])>96; });
+        if(ok){ n.x=slots[i][0]; n.y=slots[i][1]; place(n); redrawLinks(); return; }
+      }
+      n.x=140+Math.random()*720; n.y=120+Math.random()*380; place(n); redrawLinks();
+    }
+
+    /* ── nodes ── */
+    function wrapLabel(s){
+      var w=s.split(' '), out=[''], i;
+      for(i=0;i<w.length;i++){
+        if((out[out.length-1]+' '+w[i]).trim().length>13 && out[out.length-1]) out.push(w[i]);
+        else out[out.length-1]=(out[out.length-1]+' '+w[i]).trim();
+      }
+      if(out.length>2){ out=out.slice(0,2); out[1]+='…'; }
+      return out;
+    }
+    function addNode(typeId,x,y){
+      var t=TMAP[typeId], dk=visOf(t);
+      var g=el('g',{class:'bd-node','data-dom':dk});
+      var halo=el('circle',{r:41,fill:'none',stroke:DOM[dk].c,'stroke-width':3,class:'bd-halo',opacity:'0'});
+      var blob=el('circle',{r:34,fill:DOM[dk].f,stroke:DOM[dk].c,'stroke-width':3.4,class:'bd-blob'});
+      var ic=el('path',{d:ICON[t.ic||typeId],fill:'none',stroke:DOM[dk].c,'stroke-width':2.8,'stroke-linecap':'round','stroke-linejoin':'round',transform:'scale(0.86)'});
+      var tx=el('text',{y:56,'text-anchor':'middle',class:'bd-nlbl'});
+      var lbl=t.dflt||t.l;
+      wrapLabel(lbl).forEach(function(line,i){ var ts=el('tspan',{x:0,dy:(i?14:0)}); ts.textContent=line; tx.appendChild(ts); });
+      g.appendChild(halo); g.appendChild(blob); g.appendChild(ic); g.appendChild(tx);
+      gNodes.appendChild(g);
+      var n={id:uid++, type:typeId, dom:t.d, vis:dk, label:lbl, custom:!!t.custom,
+             x:x, y:y, g:g, blob:blob, halo:halo, tx:tx};
+      nodes.push(n); place(n);
+      g.addEventListener('pointerdown',function(e){ onNodeDown(e,n); });
+      g.addEventListener('dblclick',function(e){
+        e.preventDefault(); e.stopPropagation();
+        if(mode!=='del') openRename(n);
+      });
+      emptyTx.style.display='none';
+      return n;
+    }
+    function place(n){ n.g.setAttribute('transform','translate('+n.x.toFixed(1)+','+n.y.toFixed(1)+')'); }
+
+    /* ── rename ──
+       Only the LABEL changes. n.dom (which SET system it belongs to) and n.type
+       (what the food-chain test looks for) are untouched, so renaming Producers
+       to "Saguaro & creosote" keeps every check working. */
+    function setLabel(n,txt){
+      n.label=txt;
+      while(n.tx.firstChild) n.tx.removeChild(n.tx.firstChild);
+      wrapLabel(txt).forEach(function(line,i){
+        var ts=el('tspan',{x:0,dy:(i?14:0)}); ts.textContent=line; n.tx.appendChild(ts); });
+    }
+    var renameBox=wrap.querySelector('[data-rename]'),
+        renameIn=wrap.querySelector('[data-renameinput]'),
+        canvasWrap=wrap.querySelector('.bd-canvaswrap'), renaming=null;
+    function openRename(n){
+      var m=svg.getScreenCTM(); if(!m) return;
+      renaming=n;
+      var p=svg.createSVGPoint(); p.x=n.x; p.y=n.y;
+      var q=p.matrixTransform(m), r=canvasWrap.getBoundingClientRect();
+      renameBox.style.left=(q.x-r.left)+'px';
+      renameBox.style.top=(q.y-r.top+38)+'px';
+      renameBox.hidden=false;
+      renameIn.value=n.label;
+      renameIn.focus(); renameIn.select();
+    }
+    function closeRename(save){
+      var n=renaming; renaming=null; renameBox.hidden=true;
+      if(n && save){ var t=(renameIn.value||'').trim(); if(t && t!==n.label){ setLabel(n,t); analyse(); } }
+    }
+    renameIn.addEventListener('keydown',function(e){
+      e.stopPropagation();
+      if(e.key==='Enter'){ e.preventDefault(); closeRename(true); }
+      else if(e.key==='Escape'){ e.preventDefault(); closeRename(false); }
+    });
+    renameIn.addEventListener('blur',function(){ if(renaming) closeRename(true); });
+
+    function onNodeDown(e,n){
+      e.preventDefault(); e.stopPropagation();
+      if(mode==='del'){ removeNode(n); analyse(); return; }
+      if(mode==='link'){ startLink(e,n); return; }
+      select(n);
+      var st=toSvg(e), ox=st.x-n.x, oy=st.y-n.y;
+      try{ n.g.setPointerCapture(e.pointerId); }catch(err){}
+      n.g.classList.add('dragging');
+      function mv(ev){ var q=toSvg(ev); n.x=Math.max(52,Math.min(948,q.x-ox)); n.y=Math.max(52,Math.min(566,q.y-oy)); place(n); redrawLinks(); }
+      function up(ev){ n.g.removeEventListener('pointermove',mv); n.g.removeEventListener('pointerup',up); n.g.removeEventListener('pointercancel',up);
+        try{ n.g.releasePointerCapture(ev.pointerId); }catch(err){} n.g.classList.remove('dragging'); analyse(); }
+      n.g.addEventListener('pointermove',mv); n.g.addEventListener('pointerup',up); n.g.addEventListener('pointercancel',up);
+    }
+    function select(n){
+      selected=n;
+      nodes.forEach(function(m){ m.g.classList.toggle('sel', m===n); });
+      var hint=wrap.querySelector('[data-runhint]');
+      if(n) hint.innerHTML='Ready: a small change starts at <strong>'+n.label+'</strong>.';
+    }
+    function removeNode(n){
+      if(renaming===n){ renaming=null; renameBox.hidden=true; }
+      links=links.filter(function(l){ if(l.a===n||l.b===n){ if(l.el)l.el.remove(); if(l.lbl)l.lbl.remove(); return false;} return true; });
+      n.g.remove(); nodes=nodes.filter(function(m){return m!==n;});
+      if(selected===n) selected=null;
+      if(!nodes.length) emptyTx.style.display='';
+      redrawLinks();
+    }
+
+    /* ── links ── */
+    function startLink(e,n){
+      var rub=el('path',{fill:'none',stroke:linkColor(pol),'stroke-width':3.4,'stroke-dasharray':'8 7','stroke-linecap':'round'});
+      gRub.appendChild(rub);
+      try{ n.g.setPointerCapture(e.pointerId); }catch(err){}
+      function mv(ev){ var q=toSvg(ev); rub.setAttribute('d','M'+n.x+' '+n.y+' L'+q.x+' '+q.y); }
+      function up(ev){
+        n.g.removeEventListener('pointermove',mv); n.g.removeEventListener('pointerup',up); n.g.removeEventListener('pointercancel',up);
+        try{ n.g.releasePointerCapture(ev.pointerId); }catch(err){}
+        rub.remove();
+        var q=toSvg(ev), tgt=null, best=1e9;
+        nodes.forEach(function(m){ if(m===n) return; var d=Math.hypot(m.x-q.x,m.y-q.y); if(d<46&&d<best){best=d;tgt=m;} });
+        if(tgt && !links.some(function(l){return l.a===n&&l.b===tgt;})){ links.push({a:n,b:tgt,p:pol}); redrawLinks(); analyse(); }
+      }
+      n.g.addEventListener('pointermove',mv); n.g.addEventListener('pointerup',up); n.g.addEventListener('pointercancel',up);
+    }
+    function linkColor(p){ return p===2?ENERGY:(p>0?'#2f7d4f':'#A4373A'); }
+    function linkGlyph(p){ return p===2?'⚡':(p>0?'+':'−'); }
+    function redrawLinks(){
+      gLinks.innerHTML='';
+      links.forEach(function(l){
+        var dx=l.b.x-l.a.x, dy=l.b.y-l.a.y, d=Math.hypot(dx,dy)||1, ux=dx/d, uy=dy/d;
+        var back=links.some(function(k){return k.a===l.b&&k.b===l.a;});
+        /* Arc long arrows more: a flat 12px bow made a cross-canvas link run straight
+           through whatever happened to sit between its two ends. */
+        var bow = back ? 26+Math.min(18,d*0.022) : Math.min(34,11+d*0.045);
+        var x1=l.a.x+ux*36, y1=l.a.y+uy*36, x2=l.b.x-ux*40, y2=l.b.y-uy*40;
+        var mx=(x1+x2)/2 - uy*bow, my=(y1+y2)/2 + ux*bow;
+        var col=linkColor(l.p);
+        var p=el('path',{d:'M'+x1+' '+y1+' Q'+mx+' '+my+' '+x2+' '+y2, fill:'none', stroke:col,
+                         'stroke-width':l.p===2?4.6:3.4,'stroke-linecap':'round',
+                         'stroke-dasharray':l.p===2?'1 9':'none', class:'bd-link'});
+        p.style.cursor='pointer';
+        p.addEventListener('pointerdown',function(e){
+          e.stopPropagation();
+          if(mode==='del'){ links=links.filter(function(k){return k!==l;}); redrawLinks(); analyse(); }
+          else { l.p = (l.p===1? -1 : (l.p===-1? 2 : 1)); redrawLinks(); analyse(); }   /* + → − → ⚡ → + */
+        });
+        gLinks.appendChild(p);
+        // arrowhead
+        var ang=Math.atan2(y2-my,x2-mx);
+        gLinks.appendChild(el('path',{d:'M'+(x2-13*Math.cos(ang-0.42))+' '+(y2-13*Math.sin(ang-0.42))+' L'+x2+' '+y2+
+          ' L'+(x2-13*Math.cos(ang+0.42))+' '+(y2-13*Math.sin(ang+0.42))+' Z', fill:col}));
+        var lb=el('text',{x:mx,y:my+5,'text-anchor':'middle',class:'bd-lsign',fill:col});
+        lb.textContent=linkGlyph(l.p); gLinks.appendChild(lb);
+        l.el=p; l.lbl=lb;
+      });
+    }
+
+    /* ── explanation ── */
+    var modal=wrap.querySelector('[data-modal]');
+    /* Module 1 seeded this modal with a worked explanation; Module 2's four fields
+       are the student's own paragraph, so there is nothing to seed. */
+
+    function openExpl(){ modal.hidden=false; setTimeout(function(){ if(t3chal) t3chal.focus(); },40); }
+    function closeExpl(){ modal.hidden=true; }
+    wrap.querySelector('[data-explbtn]').addEventListener('click',openExpl);
+    wrap.querySelector('[data-modal-close]').addEventListener('click',closeExpl);
+    wrap.querySelector('[data-modal-done]').addEventListener('click',closeExpl);
+    wrap.querySelector('[data-expl-clear]').addEventListener('click',function(){
+      clearWriteup(); if(t3chal) t3chal.focus(); analyse();
+    });
+    modal.addEventListener('pointerdown',function(e){ if(e.target===modal) closeExpl(); });
+    modal.addEventListener('keydown',function(e){
+      e.stopPropagation();
+      if(e.key==='Escape') closeExpl();
+    });
+
+    /* ── info ── */
+    var infoModal=wrap.querySelector('[data-infomodal]');
+    function closeInfo(){ infoModal.hidden=true; }
+    wrap.querySelector('[data-infobtn]').addEventListener('click',function(){ infoModal.hidden=false; });
+    wrap.querySelectorAll('[data-info-close]').forEach(function(b){ b.addEventListener('click',closeInfo); });
+    infoModal.addEventListener('pointerdown',function(e){ if(e.target===infoModal) closeInfo(); });
+    infoModal.addEventListener('keydown',function(e){ e.stopPropagation(); if(e.key==='Escape') closeInfo(); });
+
+    /* ── modes / toolbar ── */
+    wrap.querySelectorAll('.bd-mode').forEach(function(b){
+      b.addEventListener('click',function(){
+        wrap.querySelectorAll('.bd-mode').forEach(function(x){x.classList.remove('active');});
+        b.classList.add('active'); mode=b.dataset.mode;
+        wrap.querySelector('[data-polwrap]').hidden = (mode!=='link');
+        svg.dataset.mode=mode;
+      });
+    });
+    wrap.querySelectorAll('.bd-polbtn').forEach(function(b){
+      b.addEventListener('click',function(){
+        wrap.querySelectorAll('.bd-polbtn').forEach(function(x){x.classList.remove('active');});
+        b.classList.add('active'); pol=+b.dataset.pol;
+      });
+    });
+    wrap.querySelector('[data-clear]').addEventListener('click',function(){
+      nodes.slice().forEach(removeNode); links=[]; redrawLinks(); emptyTx.style.display='';
+      wrap.querySelector('[data-spark]').hidden=true;
+      clearWriteup(); analyse();
+    });
+
+    /* ── presets ──
+       Two kinds, and the dropdown says which is which:
+         STARTER DIAGRAMS (reef, pnw, sonoran) set a biome, its characteristics, a
+           food chain and a system. They deliberately leave the write-up empty —
+           the sustainability lens, the explanation and the AI note are the
+           student's work, so these are a place to start, not a finished answer.
+         FEEDBACK-LOOP DEMOS (fishery, fashion) are not biomes and have no food
+           chain. They exist to show what reinforcing and balancing loops look
+           like, and they intentionally fail the assignment checklist.
+
+       Energy arrows run ONE WAY. There is no decomposers→producers energy link in
+       any preset: energy entering the decomposers leaves the system as heat. It is
+       NUTRIENTS that cycle back, and this tool has no arrow for that.
+
+       Every node here is named as something that can be more or less, so the sign
+       on each arrow can be audited: "Timber price", not "Markets". */
+    /* The sheet names these two as PAST student examples and tells teams to find
+       new ones. That makes them perfect here: they show the shape of a complete
+       answer — four categories, every service pointing at an outcome, one pressure
+       doing harm, one loop closing — while being explicitly off limits to copy. */
+    /* The sheet names these two as PAST student examples and tells teams to find
+       new ones. That makes them ideal here: they show the shape of a COMPLETE answer
+       — three plants, three animals, all four service categories, every service
+       pointing at an outcome, one pressure doing harm and one loop closing — while
+       being explicitly off limits to hand in. Plants sit in the first column,
+       animals in the second, services in the middle, outcomes on the right. */
+    var PRESETS={
+      springs:{name:'Freshwater springs & desert megafauna',
+        src:'nps.gov/grca/learn/nature/springs.htm · usgs.gov/centers/sbsc',
+        n:[['riparian',85,110,'Riparian cottonwood'],
+           ['ponderosa',85,265,'Ponderosa pine forest'],
+           ['scrub',85,420,'Desert scrub'],
+           ['bighorn',235,110,'Desert bighorn sheep'],
+           ['condor',235,265,'California condor'],
+           ['kaibab',235,420,'Kaibab squirrel'],
+           ['spring',480,90,'Freshwater springs'],
+           ['purify',480,235,'Water purification'],
+           ['habitat',480,380,'Habitat provision'],
+           ['scenic',480,520,'Scenic & spiritual value'],
+           ['outcome',745,205,'Desert megafauna survive the summer'],
+           ['outcome',745,455,'Visitors keep coming back'],
+           ['well',915,85,'Groundwater pumping']],
+        /* the loop is the virtuous circle park funding actually runs on:
+           bighorn → scenic value → visitors → habitat protection → survival → bighorn */
+        l:[[0,8,1],[0,7,1],[1,7,1],[2,8,1],[3,9,1],[4,9,1],[5,8,1],
+           [6,10,2],[7,10,2],[8,10,2],[9,11,2],
+           [11,8,1],[10,3,1],
+           [12,6,-1]]},
+
+      soil:{name:'Soil stabilisation & the Colorado River',
+        src:'nps.gov/grca/learn/nature/soils.htm · usgs.gov/programs/land-change-science',
+        n:[['scrub',85,110,'Desert scrub'],
+           ['ponderosa',85,265,'Ponderosa pine forest'],
+           ['riparian',85,420,'Riparian cottonwood'],
+           ['kaibab',235,110,'Kaibab squirrel'],
+           ['bighorn',235,265,'Desert bighorn sheep'],
+           ['condor',235,420,'California condor'],
+           ['herbal',480,90,'Food & medicinal plants'],
+           ['flood',480,235,'Flood & sediment control'],
+           ['soilform',480,380,'Soil formation'],
+           ['research',480,520,'Scientific research'],
+           ['outcome',745,205,'Less siltation in the Colorado River'],
+           ['outcome',745,455,'Traditional harvest and research continue'],
+           ['crowd',915,85,'Over-tourism']],
+        /* the loop: scrub builds soil, soil holds the slope, the held slope keeps
+           the scrub — roots and soil making each other */
+        l:[[0,8,1],[1,8,1],[2,7,1],[0,6,1],[3,8,1],[4,9,1],[5,9,1],[8,7,1],
+           [7,10,2],[8,10,2],[6,11,2],[9,11,2],
+           [10,0,1],
+           [12,8,-1]]}
+    };
+    wrap.querySelector('[data-preset]').addEventListener('change',function(e){
+      var P=PRESETS[e.target.value]; if(!P) return;
+      nodes.slice().forEach(removeNode); links=[];
+      var made=P.n.map(function(o){
+        var n=addNode(o[0],o[1],o[2]); if(o[3]) setLabel(n,o[3]); return n; });
+      P.l.forEach(function(o){ links.push({a:made[o[0]],b:made[o[1]],p:o[2]}); });
+      wrap.querySelector('[data-name]').value=P.name;
+      if(srcEl) srcEl.value=P.src||'';
+      clearWriteup();
+      redrawLinks(); analyse(); e.target.value='';
+    });
+
+    /* ── loop detection (directed simple cycles, capped) ──
+       ⚡ energy arrows are DELIBERATELY excluded: they show where energy goes up
+       the food chain, not what causes what, so a producers→…→decomposers→producers
+       cycle is not reported as reinforcing feedback. Feedback comes from the +/−
+       arrows only. (The shock simulation still travels along energy arrows — a
+       change in the producers really does reach the apex predators.) */
+    function findLoops(){
+      var out=[], idx={}; nodes.forEach(function(n,i){idx[n.id]=i;});
+      var adj=nodes.map(function(){return [];});
+      links.forEach(function(l){ adj[idx[l.a.id]].push({j:idx[l.b.id],p:(l.p===2?1:l.p)}); });
+      var seen={};
+      function dfs(start,cur,path,signs){
+        if(out.length>=24||path.length>7) return;
+        adj[cur].forEach(function(e){
+          if(e.j===start){
+            var ring=path.slice().sort(function(a,b){return a-b;}).join(',');
+            if(!seen[ring]){ seen[ring]=1;
+              var neg=signs.concat([e.p]).filter(function(s){return s<0;}).length;
+              out.push({nodes:path.slice(), balancing:(neg%2===1)});
+            }
+            return;
+          }
+          if(e.j>start && path.indexOf(e.j)<0) dfs(start,e.j,path.concat([e.j]),signs.concat([e.p]));
+        });
+      }
+      for(var i=0;i<nodes.length;i++) dfs(i,i,[i],[]);
+      return out;
+    }
+
+    /* ── analysis ── */
+    var checksEl=wrap.querySelector('[data-checks]'), loopsEl=wrap.querySelector('[data-loops]'),
+        verdictEl=wrap.querySelector('[data-verdict]');
+    var loopsCache=[];
+
+    /* ── assignment fields ── */
+    var srcEl=wrap.querySelector('[data-sources]'),
+        t3chal=wrap.querySelector('[data-t3chal]'),  t3link=wrap.querySelector('[data-t3link]'),
+        t3human=wrap.querySelector('[data-t3human]'),t3sol=wrap.querySelector('[data-t3sol]'),
+        nameEl=wrap.querySelector('[data-name]'),    whoEl=wrap.querySelector('[data-author]');
+    function fv(e){ return e ? (e.value||'').trim() : ''; }
+
+    /* module1_set_builder has no general escaper (only pesc, inside the PDF
+       section), and syncLinkOpts writes labels into <option> text. */
+    function esc(t){ return String(t==null?'':t).replace(/[&<>"]/g,function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+    function servicesOn(){ return nodes.filter(function(n){ return SERVICE.indexOf(n.dom)>-1; }); }
+    function catsCovered(){
+      var seen={}; servicesOn().forEach(function(n){ seen[n.dom]=1; });
+      return SERVICE.filter(function(c){ return seen[c]; });
+    }
+    /* Task 2's own wording: every service must be linked by an arrow to a concrete
+       sustainability outcome. That is a "provides" link landing on an outcome piece. */
+    function servedBy(n){
+      return links.filter(function(l){ return l.p===2 && l.a===n && l.b.dom==='out'; })
+                  .map(function(l){ return l.b; });
+    }
+    function servicesLinked(){ return servicesOn().filter(function(n){ return servedBy(n).length; }); }
+    /* Task 3's link: a human pressure harming a service */
+    function harmLinks(){
+      return links.filter(function(l){ return l.p===-1 && l.a.dom==='press' && SERVICE.indexOf(l.b.dom)>-1; });
+    }
+    /* the Link dropdown only ever offers services actually on the diagram */
+    function syncLinkOpts(){
+      if(!t3link) return;
+      var cur=t3link.value, opts=servicesOn();
+      t3link.innerHTML = opts.length
+        ? '<option value="">Choose the service most harmed…</option>' +
+          opts.map(function(n){ return '<option value="'+n.id+'">'+esc(SERVNAME[n.dom])+' · '+esc(n.label)+'</option>'; }).join('')
+        : '<option value="">Put some services on the diagram first…</option>';
+      if(cur && opts.some(function(n){ return String(n.id)===String(cur); })) t3link.value=cur;
+      var note=wrap.querySelector('[data-t3linknote]');
+      if(note) note.textContent = opts.length
+        ? 'Drawing a − harms arrow from a pressure to that service makes the link visible on the diagram too.'
+        : '';
+    }
+    function linkedService(){
+      if(!t3link||!t3link.value) return null;
+      return nodes.filter(function(n){ return String(n.id)===String(t3link.value); })[0]||null;
+    }
+
+    function clearWriteup(){
+      [t3chal,t3human,t3sol].forEach(function(e){ if(e) e.value=''; });
+      if(t3link) t3link.value='';
+    }
+    function analyse(){
+      var cnt={plant:0,animal:0,prov:0,reg:0,sup:0,cult:0,press:0,out:0};
+      nodes.forEach(function(n){ if(cnt[n.dom]!==undefined) cnt[n.dom]++; });
+      cnt.serv=cnt.prov+cnt.reg+cnt.sup+cnt.cult;
+      var tot=Math.max(1,cnt.plant+cnt.animal+cnt.serv+cnt.press);
+      ['plant','animal','serv','press'].forEach(function(k){
+        wrap.querySelector('[data-c="'+k+'"]').textContent=cnt[k];
+        wrap.querySelector('[data-mb="'+k+'"]').style.width=(cnt[k]/tot*100)+'%';
+      });
+      syncLinkOpts();
+      var tally=wrap.querySelector('[data-tally]');
+      if(tally) tally.innerHTML='<b>'+cnt.plant+'</b> plants &middot; <b>'+cnt.animal+
+        '</b> animals &middot; <b>'+cnt.serv+'</b> services';
+
+      var cross=links.filter(function(l){ return l.a.dom!==l.b.dom; }).length;
+      loopsCache=findLoops();
+      var cats=catsCovered(), servN=servicesOn().length, linkedN=servicesLinked().length;
+      var harms=harmLinks();
+      var missing=SERVICE.filter(function(c){ return cats.indexOf(c)<0; }).map(function(c){ return SERVNAME[c]; });
+
+      var t1=[
+        {ok:cnt.plant>=3,  t:'Three or more plant communities ('+cnt.plant+')'},
+        {ok:cnt.animal>=3, t:'Three or more native animals ('+cnt.animal+')'},
+        {ok:!!fv(srcEl),   t:'Official sources recorded'}
+      ];
+      var t2=[
+        {ok:cats.length===4, t:'All four service categories ('+cats.length+'/4)'},
+        {ok:servN>0&&linkedN===servN, t:'Every service points to an outcome ('+linkedN+'/'+servN+')'}
+      ];
+      var t3=[
+        {ok:!!fv(t3chal),        t:'A threat to the park is named'},
+        {ok:!!linkedService(),   t:'The service it harms is identified'},
+        {ok:!!fv(t3human),       t:'The human factor is explained'},
+        {ok:!!fv(t3sol),         t:'A solution is proposed'},
+        {ok:!!(fv(nameEl)&&fv(whoEl)), t:'Title and your name entered'}
+      ];
+      var checks=t1.concat(t2).concat(t3);
+      function tal(a){ return a.filter(function(c){return c.ok;}).length+'/'+a.length; }
+      function rows(a){ return a.map(function(c){
+        return '<div class="bd-check '+(c.ok?'ok':'')+'"><span>'+(c.ok?'✓':'○')+'</span>'+c.t+'</div>'; }).join(''); }
+      checksEl.innerHTML=
+        '<div class="bd-ckh">Task 1 · Biodiversity<b>'+tal(t1)+'</b></div>'+rows(t1)+
+        '<div class="bd-ckh">Task 2 · Ecosystem services<b>'+tal(t2)+'</b></div>'+rows(t2)+
+        '<div class="bd-ckh">Task 3 · Impact analysis<b>'+tal(t3)+'</b></div>'+rows(t3);
+
+      if(!loopsCache.length){
+        loopsEl.innerHTML='<div class="bd-loops-h">Feedback loops</div><div class="bd-nol">'+
+          'None yet. The sheet calls Task 2\u2019s third column a <i>feedback loop</i> \u2014 you get one when an '+
+          'outcome comes back around to support the biodiversity or the service that produced it.</div>';
+      } else {
+        var r=loopsCache.filter(function(L){return !L.balancing;}).length, b=loopsCache.length-r;
+        loopsEl.innerHTML='<div class="bd-loops-h">Feedback loops <span class="bd-lcount">'+r+' reinforcing · '+b+' balancing</span></div>'+
+          loopsCache.slice(0,3).map(function(L){
+            return '<div class="bd-loop '+(L.balancing?'bal':'rein')+'"><b>'+(L.balancing?'balancing':'reinforcing')+'</b> '+
+              L.nodes.map(function(i){return nodes[i].label;}).join(' → ')+' → …</div>';
+          }).join('') + (loopsCache.length>3?'<div class="bd-loopmore">+'+(loopsCache.length-3)+' more</div>':'');
+      }
+
+      var v;
+      if(!nodes.length) v='Start with <b>Task 1</b>. Drop in a plant or an animal you can source from nps.gov or usgs.gov.';
+      else if(cnt.plant<3||cnt.animal<3) v='Task 1 wants <b>three or more</b> of each. You have '+cnt.plant+
+        ' plant'+(cnt.plant===1?'':'s')+' and '+cnt.animal+' animal'+(cnt.animal===1?'':'s')+'.';
+      else if(!servN) v='Now <b>Task 2</b>. Add an ecosystem service — the benefit the park gives people.';
+      else if(cats.length<4) v='Task 2 wants one example from <b>each</b> of the four categories. Still missing: <em>'+
+        missing.join(', ')+'</em>.';
+      else if(linkedN<servN) v='Every service needs a <b>➜ provides</b> arrow into a named outcome. '+
+        (servN-linkedN)+' of yours '+((servN-linkedN)===1?'does':'do')+' not have one yet.';
+      else if(!harms.length) v='Now <b>Task 3</b>. Drop in a human pressure and draw a <b>− harms</b> arrow to the service it damages.';
+      else if(!fv(t3chal)||!linkedService()||!fv(t3human)||!fv(t3sol))
+        v='The diagram is there. Open <b>✎ Task 3 write-up</b> and finish the four-part paragraph.';
+      else v='<b>All three tasks are covered.</b> Check the feedback loops, then Save as PDF and hand that in.';
+      verdictEl.innerHTML=v;
+
+      report={cnt:cnt, cross:cross, loops:loopsCache, checks:checks,
+              t1:t1, t2:t2, t3:t3, cats:cats, verdict:v,
+              servN:servN, linkedN:linkedN, harms:harms};
+    }
+
+    [srcEl,t3chal,t3human,t3sol,nameEl,whoEl].forEach(function(e){
+      if(e) e.addEventListener('input',analyse); });
+    if(t3link) t3link.addEventListener('change',analyse);
+
+    /* ── shock simulation ── */
+    var spark=wrap.querySelector('[data-spark]');
+    var shockModal=wrap.querySelector('[data-shockmodal]');
+    var shockSpark=wrap.querySelector('[data-shock-spark]');
+    var shockResetT=null, shockGen=0;
+    /* one color per outcome. 'comp' = reinforcing AND balancing feedback both in
+       reach, which is the interesting case and used to be reported as a runaway. */
+    var SC={rein:'#A4373A', comp:'#BC8A2E', bal:'#2f7d4f', none:'#8c9a93'};
+
+    function resetShockViz(){
+      nodes.forEach(function(n){ n.blob.setAttribute('fill',DOM[n.vis].f);
+        n.halo.setAttribute('opacity','0'); n.blob.style.filter=''; });
+    }
+    // The little chart shows the CHARACTERISTIC SHAPE of each response. It is an
+    // archetype, not the raw simulation, but it must never contradict the verdict.
+    //   rein — snowballs and saturates
+    //   comp — grows, then gets caught and wobbles to a new, higher level
+    //   bal  — pushed back toward where it started (this tool models no delay, so it
+    //          converges; overshoot and oscillation are what DELAY adds, which is why
+    //          the card says so rather than drawing a permanent oscillation)
+    //   none — no loop catches it, so it simply decays
+    function archetype(kind){
+      var N=48, ys=[];
+      for(var i=0;i<N;i++){ var t=i/(N-1), y;
+        if(kind==='rein'){ y=0.12+0.86/(1+Math.exp(-(t-0.5)*9)); }
+        else if(kind==='comp'){ y=0.15+0.55/(1+Math.exp(-(t-0.34)*11))
+                                  +0.17*Math.sin(t*Math.PI*4)*Math.exp(-2.3*t); }
+        else if(kind==='bal'){ var k=6.5; y=0.14+0.80*(k*t)*Math.exp(1-k*t); }
+        else { y=0.08+0.86*Math.exp(-4.2*t); }
+        ys.push(y);
+      }
+      return ys;
+    }
+    function drawCurve(svgEl, ys, color){
+      svgEl.innerHTML='';
+      var N=ys.length, X=function(i){ return 8+i/(N-1)*244; }, Y=function(y){ return 70-Math.max(0,Math.min(1,y))*56; };
+      svgEl.appendChild(el('path',{d:'M8 70 L252 70',stroke:'#e2e9e5','stroke-width':1.4}));
+      var d=''; ys.forEach(function(y,i){ d+=(i?' L':'M')+X(i).toFixed(1)+' '+Y(y).toFixed(1); });
+      svgEl.appendChild(el('path',{d:d,fill:'none',stroke:color,'stroke-width':2.8,
+        'stroke-linecap':'round','stroke-linejoin':'round'}));
+    }
+    function closeShock(){ shockModal.hidden=true; resetShockViz(); }
+    wrap.querySelector('[data-shock-close]').addEventListener('click',closeShock);
+    wrap.querySelector('[data-shock-again]').addEventListener('click',function(){ shockModal.hidden=true; runShock(); });
+    shockModal.addEventListener('pointerdown',function(e){ if(e.target===shockModal) closeShock(); });
+    shockModal.addEventListener('keydown',function(e){ e.stopPropagation(); if(e.key==='Escape') closeShock(); });
+
+    function showShockCard(out, hist){
+      var card=shockModal.querySelector('.bd-shock-card');
+      card.style.setProperty('--sc', SC[out.kind]);
+      shockModal.querySelector('[data-shock-word]').textContent=out.word;
+      shockModal.querySelector('[data-shock-lead]').innerHTML=out.lead;
+      shockModal.querySelector('[data-shock-body]').innerHTML=out.body;
+      var sw=shockModal.querySelector('[data-shock-sparkwrap]');
+      if(hist){ sw.hidden=false; drawCurve(shockSpark, archetype(out.kind), SC[out.kind]); } else { sw.hidden=true; }
+      shockModal.hidden=false;
+    }
+
+    function runShock(){
+      if(!nodes.length) return;
+      var gen=++shockGen;               // loading a preset mid-animation invalidates this run
+      if(shockResetT){ clearTimeout(shockResetT); shockResetT=null; }
+      resetShockViz();
+      var start=selected||nodes[Math.floor(Math.random()*nodes.length)];
+      select(start);
+      var reinCount=report.loops.filter(function(L){return !L.balancing;}).length;
+      var balCount=report.loops.filter(function(L){return L.balancing;}).length;
+      function loopName(bal){
+        var L=report.loops.filter(function(x){return x.balancing===bal;})[0];
+        return L ? pesc(L.nodes.map(function(i){return nodes[i].label;}).join(' → ')+' → …') : '';
+      }
+      if(!links.length){
+        wrap.querySelector('[data-runhint]').innerHTML='Nothing is connected yet — draw some arrows, then shock it.';
+        showShockCard({kind:'none', word:'Nowhere to go',
+          lead:'You shocked <b>'+pesc(start.label)+'</b> — but nothing is connected to it yet.',
+          body:'A shock can only travel along arrows. Switch to <b>Connect</b>, draw a link or two, then shock it again to watch the change move through your system.'}, null);
+        return;
+      }
+      var idx={}; nodes.forEach(function(n,i){idx[n.id]=i;});
+      var val=nodes.map(function(){return 0;}); val[idx[start.id]]=1;
+      var ever=nodes.map(function(){return false;}); ever[idx[start.id]]=true;
+      var hist=[1], step=0;
+      (function frame(){
+        if(gen!==shockGen || nodes.length!==val.length) return;   // diagram changed under us
+        if(step++>9){ finish(); return; }
+        /* Each node keeps RETENTION of its deviation and passes GAIN of it along each
+           arrow. With a cycle the spectral radius is RETENTION+GAIN, so a loop grows
+           only when that exceeds 1; with no cycle every eigenvalue is RETENTION, so
+           an acyclic chain always dies away. That is what makes the animation agree
+           with the structural verdict. The old 0.94 retention made even a straight
+           food chain pump itself up to the clamp with no loop anywhere. */
+        var RETENTION=0.6, GAIN=0.62;
+        var nv=val.slice();
+        links.forEach(function(l){ nv[idx[l.b.id]] += (l.p===2?1:l.p)*val[idx[l.a.id]]*GAIN; });
+        nv=nv.map(function(x){ return Math.max(-4,Math.min(4,x*RETENTION)); });
+        val=nv;
+        var mag=0; val.forEach(function(x,i){ mag+=Math.abs(x); if(Math.abs(x)>=0.12) ever[i]=true; }); hist.push(mag);
+        nodes.forEach(function(n,i){
+          var x=val[i], a=Math.min(1,Math.abs(x));
+          n.blob.setAttribute('fill', x>0.02? 'rgba(47,125,79,'+(0.15+0.7*a)+')' : (x<-0.02? 'rgba(164,55,58,'+(0.15+0.7*a)+')' : DOM[n.vis].f));
+          n.halo.setAttribute('opacity', a>0.15? (0.25+0.55*a).toFixed(2):'0');
+          n.halo.setAttribute('r', (38+14*a).toFixed(1));
+        });
+        setTimeout(frame, 380);
+      })();
+
+      function finish(){
+        var spread=0; ever.forEach(function(b,i){ if(b && i!==idx[start.id]) spread++; });
+        var spreadTxt = spread===0 ? 'the change stayed on <b>'+pesc(start.label)+'</b>'
+                        : 'the change spread to <b>'+spread+'</b> other component'+(spread>1?'s':'');
+
+        // Verdict comes from STRUCTURE (the same loops the panel lists) AND from what
+        // the animation actually did. Structure alone used to be able to contradict the
+        // picture on screen: the loop list ignores ⚡ energy arrows, but the simulation
+        // propagates along them, so a ring of energy arrows could drive every node to
+        // the clamp while the card said the shock had faded. `grew` catches that.
+        var adj={}; nodes.forEach(function(n){ adj[n.id]=[]; });
+        links.forEach(function(l){ adj[l.a.id].push(l.b.id); });
+        var seen={}; seen[start.id]=true; var stk=[start.id];
+        while(stk.length){ var u=stk.pop(); adj[u].forEach(function(v){ if(!seen[v]){ seen[v]=true; stk.push(v); } }); }
+        function reaches(bal){
+          return report.loops.some(function(L){ return L.balancing===bal &&
+            L.nodes.some(function(i){ return seen[nodes[i].id]; }); });
+        }
+        var reinReach=reaches(false), balReach=reaches(true);
+        var m0=hist[0]||1, mN=hist[hist.length-1], mPk=Math.max.apply(null,hist);
+        /* Careful: total magnitude rises just from a shock SPREADING down a chain,
+           with no amplification anywhere. A runaway is one that is still climbing
+           when the clock stops — i.e. the peak is at the end, not behind us. */
+        var grew = mN > m0*1.15 && mN >= mPk*0.999;
+
+        var out;
+        if(reinReach && balReach){
+          out={kind:'comp', word:'Two forces pulled on it',
+            lead:'You shocked <b>'+pesc(start.label)+'</b> and '+spreadTxt+', into <b>both</b> kinds of feedback at once.',
+            body:'The change reaches a reinforcing loop ('+loopName(false)+') that makes it bigger every time round, and a balancing loop ('+loopName(true)+') that pushes it back. What the system does next is a race between them: whichever loop is <b>stronger and faster</b> wins. Most real systems look like this, and it is why a problem can seem under control for years and then get away — the balancing loop was holding, until it could not.'};
+        } else if(reinReach){
+          out={kind:'rein', word:'It ran away',
+            lead:'You shocked <b>'+pesc(start.label)+'</b> and '+spreadTxt+' — straight into a <b>reinforcing loop</b>.',
+            body:'Once the change reaches a loop like '+loopName(false)+', every trip around makes it <b>larger</b>. A small nudge snowballs into a big one — that is <em>non-linearity</em>, and it is how tipping points sneak up on people.'};
+        } else if(grew){
+          /* No causal loop can explain this, so the growth is coming from ⚡ energy
+             arrows that close a ring. Energy does not cycle — say so rather than
+             printing a verdict that contradicts the animation. */
+          out={kind:'rein', word:'It kept growing',
+            lead:'You shocked <b>'+pesc(start.label)+'</b> and '+spreadTxt+', and the disturbance <b>kept building</b>.',
+            body:'Nothing in your <b class="pos">+</b>/<b class="neg">−</b> arrows explains that, so the growth is coming from <b>⚡ energy arrows that loop back on themselves</b>. Energy flows one way through a food chain and leaves as heat — it does not return to the producers. Check whether one of those arrows should be a cause-and-effect arrow instead.'};
+        } else if(balReach){
+          out={kind:'bal', word:'It was pushed back',
+            lead:'You shocked <b>'+pesc(start.label)+'</b> and '+spreadTxt+', into <b>balancing feedback</b>.',
+            body:'A balancing loop like '+loopName(true)+' works against the change, so instead of running away it is pulled back toward where it started. Whether it settles smoothly or overshoots and swings past first depends on how strong the loop is and <em>how long it takes to respond</em> — delay is what turns a balancing loop into an oscillating one.'};
+        } else {
+          out={kind:'none', word:'The system absorbed it',
+            lead:'You shocked <b>'+pesc(start.label)+'</b> and '+spreadTxt+', but the disturbance <b>faded</b>.',
+            body: spread>0
+              ? 'The change rippled outward and then ran out of energy: with no loop to catch it and feed it back, it simply drained out of the system. That capacity to take a hit and return to normal is <em>resilience</em>.'
+              : 'With nothing leading out of <b>'+pesc(start.label)+'</b>, the shock had nowhere to travel and dissipated on the spot. Connect it to something and try again.'};
+        }
+        wrap.querySelector('[data-runhint]').innerHTML='<b>'+out.word+'.</b> Press ⚡ to run it again.';
+        spark.hidden=false; drawCurve(spark, archetype(out.kind), SC[out.kind]);
+        var t=el('text',{x:8,y:12,class:'bd-sparklbl'}); t.textContent='shape of the response'; spark.appendChild(t);
+        showShockCard(out, hist);
+        shockResetT=setTimeout(resetShockViz, 6000);
+      }
+    }
+    wrap.querySelector('[data-run]').addEventListener('click', runShock);
+
+    var PRINT_CSS =
+      "@page{size:letter portrait;margin:13mm}"+
+      "*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}"+
+      "body{font:400 10.5pt/1.45 'Inter',Helvetica,Arial,sans-serif;color:#22302b}"+
+      ".pc-head{border-bottom:2.5px solid #2D6A4F;padding-bottom:7px;margin-bottom:12px}"+
+      ".pc-kicker{font-size:8pt;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:#40916C}"+
+      ".pc-head h1{font-family:'Merriweather',Georgia,serif;font-size:20pt;font-weight:900;color:#1A3C34;line-height:1.12;margin:2px 0 3px}"+
+      ".pc-meta{font-size:9pt;color:#5b6b63}"+
+      ".pc-fig{border:1px solid #dde7e2;border-radius:9px;padding:6px;margin-bottom:12px;page-break-inside:avoid}"+
+      ".pc-fig svg{width:100%;height:auto;display:block}"+
+      ".pc-fig figcaption{font-size:8pt;color:#5b6b63;padding:5px 3px 1px;border-top:1px solid #eef2ef;margin-top:4px}"+
+      ".k{display:inline-block;width:8px;height:8px;border-radius:2px;margin:0 3px 0 8px;vertical-align:middle}"+
+      ".k.pl{background:#2f7d4f;margin-left:0}.k.an{background:#c9722b}.k.sv{background:#1C7293}"+
+      ".k.pr{background:#A4373A}.k.ou{background:#BC8A2E}"+
+      "b.pos{color:#2f7d4f}b.neg{color:#A4373A}b.eng{color:#1C7293}"+
+      ".pc-src{font-size:8pt;color:#5b6b63;background:#f6f7f6;border-left:3px solid #c2cec8;"+
+        "border-radius:0 5px 5px 0;padding:4px 8px;margin-bottom:9px}"+
+      ".pc-src b{color:#33453d}"+
+      ".pc-t2{margin-top:13px}.pc-t2 h2{margin-bottom:5px}"+
+      ".pc-tbl{width:100%;border-collapse:collapse;font-size:8.5pt}"+
+      ".pc-tbl th,.pc-tbl td{text-align:left;vertical-align:top;padding:3px 7px 3px 0;"+
+        "border-bottom:1px solid #e6ece8;line-height:1.4}"+
+      ".pc-tbl tr:first-child th{font-size:7pt;font-weight:800;letter-spacing:.06em;"+
+        "text-transform:uppercase;color:#8a9a92;border-bottom:1.5px solid #dde7e2}"+
+      ".pc-tbl th{white-space:nowrap;color:#1A3C34;font-weight:800;width:1%;padding-right:14px}"+
+      ".pc-tbl .miss{color:#b08a8c;font-style:italic}"+
+      ".pc-harm{margin-top:5px;font-size:8pt;color:#7d6a33;font-style:italic}"+
+      ".k.r{background:#6a8f2f}"+
+      ".pc-lens{margin-top:13px;background:#fbfaf5;border:1px solid #e6e0cd;border-radius:7px;padding:8px 10px}"+
+      ".pc-lens h2{border:0;padding:0;margin:0 0 3px}"+
+      ".pc-lens .lb{display:inline-block;font-size:7pt;font-weight:800;letter-spacing:.07em;text-transform:uppercase;"+
+        "color:#fff;background:#BC8A2E;border-radius:3px;padding:1px 5px;margin-right:5px;vertical-align:1px}"+
+      ".pc-lens .ln{font-family:'Merriweather',Georgia,serif;font-size:10.5pt;font-weight:800;color:#1A3C34}"+
+      ".pc-lens h3{font-size:8pt;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:#8a7333;margin:6px 0 1px}"+
+      ".pc-lens p{font-size:9pt;line-height:1.5}"+
+      ".pc-ai{margin-top:10px;font-size:8pt;line-height:1.45;color:#5b6b63;background:#f6f7f6;"+
+        "border-left:3px solid #c2cec8;border-radius:0 5px 5px 0;padding:5px 8px}"+
+      ".pc-ai b{color:#33453d}"+
+      ".pc-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}"+
+      "h2{font-family:'Merriweather',Georgia,serif;font-size:11pt;font-weight:800;color:#1A3C34;"+
+        "margin:0 0 5px;padding-bottom:3px;border-bottom:1px solid #dde7e2}"+
+      "h2:not(:first-child){margin-top:13px}"+
+      "ul{list-style:none}li{font-size:9pt;line-height:1.5}"+
+      ".pc-checks li{margin-bottom:2px;font-size:9pt}"+
+      ".pc-checks li.ok{color:#1A3C34;font-weight:600}.pc-checks li.no{color:#96a49d}"+
+      ".pc-expl{margin-top:15px;padding-top:9px;border-top:1px solid #dde7e2}"+
+      ".pc-expl h2{border:0;padding:0;margin-bottom:4px}"+
+      ".pc-expl p{font-size:9pt;line-height:1.5;margin-bottom:5.5px}"+
+      ".pc-expl p:first-of-type{font-weight:600;color:#1A3C34}"+
+      ".pc-foot{margin-top:14px;padding-top:6px;border-top:1px solid #dde7e2;font-size:7.5pt;color:#96a49d}";
+
+    /* ── export: render a print sheet into a hidden iframe, then let the
+       browser's own print dialog do "Save as PDF" (no libraries needed) ── */
+    function pesc(t){ return String(t==null?'':t).replace(/[&<>"]/g,function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+
+    function diagramSVG(){
+      var c=svg.cloneNode(true);
+      c.removeAttribute('class'); c.removeAttribute('style');
+      ['[data-empty]','[data-rubber]'].forEach(function(q){
+        var n=c.querySelector(q); if(n) n.remove(); });
+      // crop the viewBox to the drawing (+ breathing room) so the figure prints big
+      var x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;
+      nodes.forEach(function(n){ x0=Math.min(x0,n.x-70); x1=Math.max(x1,n.x+70);
+                                 y0=Math.min(y0,n.y-62); y1=Math.max(y1,n.y+82); });
+      if(x1-x0<430){ var cx=(x0+x1)/2; x0=cx-215; x1=cx+215; }
+      if(y1-y0<280){ var cy=(y0+y1)/2; y0=cy-140; y1=cy+140; }
+      x0=Math.max(0,x0); y0=Math.max(0,y0); x1=Math.min(1000,x1); y1=Math.min(620,y1);
+      c.setAttribute('viewBox', x0.toFixed(0)+' '+y0.toFixed(0)+' '+(x1-x0).toFixed(0)+' '+(y1-y0).toFixed(0));
+      var st=document.createElementNS(NS,'style');
+      st.textContent=".bd-nlbl{font:700 12px 'Inter',Helvetica,Arial,sans-serif;fill:#33453d;"+
+        "paint-order:stroke;stroke:#fff;stroke-width:3.5px;stroke-linejoin:round}"+
+        ".bd-lsign{font:900 15px 'Inter',Helvetica,Arial,sans-serif;"+
+        "paint-order:stroke;stroke:#fff;stroke-width:4px;stroke-linejoin:round}";
+      c.insertBefore(st, c.firstChild);
+      return new XMLSerializer().serializeToString(c);
+    }
+
+    function exportPDF(){
+      var hint=wrap.querySelector('[data-runhint]');
+      if(!nodes.length){
+        hint.innerHTML='<strong>Nothing to save yet.</strong> Drag in at least one component first.';
+        return;
+      }
+      var title=(wrap.querySelector('[data-name]').value||'').trim() || 'Untitled system';
+      var who=(wrap.querySelector('[data-author]').value||'').trim();
+      var when=new Date().toLocaleDateString(undefined,{year:'numeric',month:'long',day:'numeric'});
+
+      /* The sheet deliberately does NOT reprint the components, the connections,
+         the food chain, the loop list or the on-screen read-out. All of that is
+         already visible in the diagram directly above it, and spelling it out in
+         words made the page busy. Ryan's call, 2026-08-31. What prints is the
+         student's own work: the biome, the diagram, the two checklists, the
+         sustainability lens, the explanation and the AI credit. */
+      function checks(list){ return '<ul class="pc-checks">'+(list||[]).map(function(c){
+        return '<li class="'+(c.ok?'ok':'no')+'">'+(c.ok?'&#10003;':'&#9675;')+'&nbsp;&nbsp;'+pesc(c.t)+'</li>'; }).join('')+'</ul>'; }
+
+      /* Kept lean on purpose, the same way Module 1's sheet was trimmed: the
+         diagram already shows the pieces, so nothing restates it. What IS printed
+         is what the sheet asks to be handed in — Task 2's table and Task 3's
+         paragraph, neither of which the picture states on its own. */
+      function paras(t){ return String(t).split(/\n\s*\n/).map(function(p){
+        return '<p>'+pesc(p).replace(/\n/g,'<br>')+'</p>'; }).join(''); }
+
+      // sources (Task 1 — the sheet restricts these to nps.gov / usgs.gov)
+      var src = fv(srcEl)
+        ? '<div class="pc-src"><b>Sources</b> '+pesc(fv(srcEl))+'</div>' : '';
+
+      // Task 2, in the sheet's own three columns
+      var rowsHTML='';
+      SERVICE.forEach(function(cat){
+        var list=nodes.filter(function(n){ return n.dom===cat; });
+        if(!list.length){
+          rowsHTML+='<tr><th>'+SERVNAME[cat]+'</th><td class="miss" colspan="2">no example yet</td></tr>';
+          return;
+        }
+        list.forEach(function(n,k){
+          var outs=servedBy(n).map(function(o){ return pesc(o.label); });
+          rowsHTML+='<tr><th>'+(k?'':SERVNAME[cat])+'</th><td>'+pesc(n.label)+'</td><td>'+
+            (outs.length? outs.join('; ') : '<span class="miss">not yet linked to an outcome</span>')+'</td></tr>';
+        });
+      });
+      var table='<section class="pc-t2"><h2>Task 2 &middot; Ecosystem services</h2>'+
+        '<table class="pc-tbl"><tr><th>Service type</th><th>GCNP example</th>'+
+        '<th>Sustainability relationship</th></tr>'+rowsHTML+'</table></section>';
+
+      // Task 3, composed into the single paragraph the sheet asks for
+      var svc=linkedService();
+      var harmTxt=report.harms.map(function(l){
+        return pesc(l.a.label)+' → '+pesc(l.b.label); }).join('; ');
+      var t3parts=[];
+      if(fv(t3chal))  t3parts.push('The main threat to Grand Canyon National Park is '+pesc(fv(t3chal))+'.');
+      if(svc)         t3parts.push('It most directly harms '+pesc(svc.label)+
+                        ', a '+SERVNAME[svc.dom].toLowerCase()+' service.');
+      if(fv(t3human)) t3parts.push(pesc(fv(t3human)));
+      if(fv(t3sol))   t3parts.push(pesc(fv(t3sol)));
+      var impact = t3parts.length
+        ? '<section class="pc-lens"><h2>Task 3 &middot; Sustainability impact analysis</h2>'+
+            '<p>'+t3parts.join(' ')+'</p>'+
+            (harmTxt? '<div class="pc-harm">Shown on the diagram as: '+harmTxt+'</div>' : '')+
+          '</section>'
+        : '';
+
+      var doc='<!DOCTYPE html><html><head><meta charset="utf-8"><title>'+pesc(title)+'</title>'+
+        '<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">'+
+        '<style>'+PRINT_CSS+'</style></head><body>'+
+        '<header class="pc-head">'+
+          '<div class="pc-kicker">SOS 110 &middot; Module 2 Review &middot; Grand Canyon National Park</div>'+
+          '<h1>'+pesc(title)+'</h1>'+
+          '<div class="pc-meta">'+(who?'<strong>'+pesc(who)+'</strong> &middot; ':'')+when+'</div>'+
+        '</header>'+
+        src+
+        '<figure class="pc-fig">'+diagramSVG()+
+          '<figcaption><span class="k pl"></span>Plants <span class="k an"></span>Animals '+
+          '<span class="k sv"></span>Services <span class="k pr"></span>Pressures '+
+          '<span class="k ou"></span>Outcomes'+
+          ' &nbsp;&nbsp;|&nbsp;&nbsp; <b class="pos">&mdash;+&rarr;</b> sustains &nbsp; '+
+          '<b class="eng">&mdash;&rarr;</b> provides &nbsp; <b class="neg">&mdash;&minus;&rarr;</b> harms'+
+          '</figcaption></figure>'+
+        table+
+        impact+
+        '<section class="pc-cols">'+
+          '<div><h2>Task 1 &middot; Biodiversity</h2>'+checks(report.t1)+
+            '<h2>Task 2 &middot; Services</h2>'+checks(report.t2)+'</div>'+
+          '<div><h2>Task 3 &middot; Impact analysis</h2>'+checks(report.t3)+'</div>'+
+        '</section>'+
+        '<footer class="pc-foot">Built in the Module 2 SET Builder &mdash; SOS 110, Module 2 Review. '+
+          'Every student submits their own copy on Canvas.</footer>'+
+        '</body></html>';
+
+      var f=document.createElement('iframe');
+      f.setAttribute('aria-hidden','true');
+      f.style.cssText='position:fixed;right:0;bottom:0;width:1px;height:1px;opacity:0;border:0;';
+      document.body.appendChild(f);
+      var d=f.contentDocument||f.contentWindow.document;
+      d.open(); d.write(doc); d.close();
+      hint.innerHTML='Opening your print dialog &mdash; choose <strong>&ldquo;Save as PDF&rdquo;</strong> as the destination.';
+      var go=function(){
+        try{ f.contentWindow.focus(); f.contentWindow.print(); }catch(err){}
+        setTimeout(function(){ f.remove(); }, 2000);
+      };
+      // give webfonts + the SVG filter a moment to settle before printing
+      if(d.fonts && d.fonts.ready){ d.fonts.ready.then(function(){ setTimeout(go,180); }); }
+      else setTimeout(go, 700);
+    }
+    wrap.querySelector('[data-pdf]').addEventListener('click', exportPDF);
+
+    svg.addEventListener('pointerdown',function(){ if(mode==='move'){ select(null); nodes.forEach(function(m){m.g.classList.remove('sel');}); } });
+    analyse();
+  })();</script>
+</section>
+</div>
+</body>
+</html>
